@@ -20,4 +20,16 @@ Not just for college applications but also for connections/advising after.
 
 ### Must have
 
+As a high school student, I would like to schedule a consultation with someone helpful from the school of my choice so that I can better understand my fit at a school and make my application stronger.
+
+As a high school student, I would like to be able to view the most up-to-date information (SAT scores, avg GPA, tuition, application deadlines, etc.) about different schools.
+
+As a college mentor, I would like to be able to connect with students who have requested a consultation with me so that we can contact each other easily and meet at a mutually beneficial time.
+
+As a high school student, I would like to be able to view different mentors for a school and have some indication of their quality so that I can meet with someone who is helpful.
+
 ### Nice to have
+
+As a college mentor, I would like to submit official proof of identity so that students can trust my background.
+
+As a college mentor, I would like to upload my availability time slots for consultation sessions so that students can meet with me at a mutually beneficial time.
