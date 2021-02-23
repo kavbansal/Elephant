@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+  padding-top: 56px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.site-container {
+  margin: 2em;
+}
+
+.navbar {
+  background-color: #002D72;
+}
+.navbar-brand{
+  color:#ffffff !important;
+  }
+
+a, .navbar-nav, .nav-link {
+  color: #ffffff !important;
+  border-width: 0ch;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.profile {
+  /* display: flex; */
+  margin-top: 50px;
+  /* background-color: blueviolet; */
+  /* align-items: stretch; */
+}
+
+.profile-pic {
+  height: 100px;
+  width: 100px;
+}
+
+.profile-info {
+  /* background-color: green; */
+  width: 100%;
+}
+
+.contact-name {
+  font-size: xx-large;
+  text-align: center;
+  padding: 10px;
+}
+
+.contact-email {
+  font-size: large;
+  text-align: center;
+  padding: 5px;
+}
+
+.user-results {
+  /* background-color: bisque; */
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  /* background-color: yellow; */
+  align-items: stretch;
+}
