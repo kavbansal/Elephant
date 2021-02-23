@@ -8,6 +8,7 @@
 - Nodejs version 13.9.0
 - Python version 3.7.5
 - Need to have npm, nodejs, python installed.
+- Backend doesn't work right now.
 
 ## Front End (ReactJS)
 
