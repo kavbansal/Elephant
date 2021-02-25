@@ -44,5 +44,5 @@
 - Implement Payment
 - UI Improvements
 
-# Wireframes (in progress)
+## Wireframes (in progress)
 https://www.figma.com/file/UO6YbQUoaK2SEgRAYZdDKo/Elephant-Project
