@@ -14,25 +14,13 @@ adminEmails = ['jacobl7893@gmail.com']
 
 @users_router.route('/api/userinfo', methods=['POST'])
 def add_user():
-    name = request.form['username']
+    name = request.form['name']
     email = request.form['email']
     
-    # Find a matching user
-    matchingUser = mongo_user_dao.findAllMatchingEmail(email)
     
-    # If a user already exists upon login, then don't create a new user
-    if matchingUser:
-        return jsonify(matchingUser[0].toDict()), 200
-    
-
-    if (email in adminEmails):
-        user = Admin(name=name, email=email)
-        mongo_user_dao.insert(user)
-        return jsonify(user.toDict()), 200
-    else:
-        user = User(name=name, email=email)
-        mongo_user_dao.insert(user)
-        return jsonify(user.toDict()), 200
+    user = User(name=name, email=email)
+    mongo_user_dao.insert(user)
+    return jsonify(user.toDict()), 200
         
 
 @users_router.route('/api/userinfo', methods=['PUT'])

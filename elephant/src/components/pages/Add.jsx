@@ -9,7 +9,7 @@ export default class Add extends Component {
     return (
       <React.Fragment>
         <h1>About</h1><br/>
-        <AboutDescription submitForm={this.submitForm}/>
+        <AboutDescription/>
       </React.Fragment>
     );
   }
