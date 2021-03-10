@@ -1,9 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import IntFlag
 from pathlib import Path
-
 from bson.objectid import ObjectId
-
 from app.mongo_inst import mongo
 
 class DaoFactory():
@@ -101,7 +99,7 @@ class UserDao(DatabaseObject):
         userDoc = self.collection.find_one({"_id": ObjectId(Id)})
 
         # Serialize it into an User object
-        newUser = User.fromDict(UserDoc)
+        newUser = User.fromDict(userDoc)
 
         if (userDoc['isAdmin']):
             return Admin.fromDict(userDoc)
@@ -193,6 +191,112 @@ class UserDao(DatabaseObject):
     def remove(self, Id):
         """
             Remove a User from self.collection by its id.
+
+            Args:
+                Id: the id of the listing to remove
+
+            Returns:
+                The number of users deleted
+        """
+
+        # Delete the item frmo our mongodb collection by its id
+        returned = self.collection.delete_one({'_id': ObjectId(Id)})
+        return returned.deleted_count
+
+class CollegeDao(DatabaseObject):
+    """
+        DAO converts college information from results given from MongoDB queries to
+        their corresponding class representation.
+    """
+
+    def __init__(self, collection):
+        """
+            Initialize DAO
+
+            Args:
+                collection: the DB to access
+        """
+        super().__init__(collection)
+
+        # Register the location attribute for documents in mongo to be used as a
+        # geospatial index for querying
+        self.collection.create_index([('location', '2dsphere' )])
+
+    def findById(self, Id):
+        """
+            Find college by Id in self.collection
+
+            Args:
+                Id: the id of the user to find
+
+            Retuns:
+                a college instance
+        """
+
+        # Get the item from our mongodb collection
+        collegeDoc = self.collection.find_one({"_id": ObjectId(Id)})
+
+        # Serialize it into an User object
+        newCollege = College.fromDict(collegeDoc)
+
+        return newCollege
+
+    def findAll(self):
+        """
+            Get all colleges in self.collection.
+
+            Returns:
+                a list of Colleges
+        """
+
+        # Mongo query to get the items that have the specified tags from our
+        # mongodb collection
+        filteredColleges = self.collection.find()
+
+        output = []
+        # Serialize documents into Item objects and return them in a list
+        for collegeDoc in filteredColleges:
+            output.append(College.fromDict(collegeDoc))
+        return output
+
+    def insert(self, college):
+        """
+            Add a College to self.collection
+
+            Args:
+                college: the college that is being inserted
+        """
+        data = college.toDict() # Get item info formatted in a JSON friendly manner
+        data.pop('id') # Remove the id field
+
+        # Insert the user into our mongodb collection,
+        # get the ID it was assigned, give the user that id
+        college_id = self.collection.insert_one(data).inserted_id
+        new_college = self.collection.find_one({'_id': college_id})
+        college.Id = str(new_college['_id'])
+
+    def update(self, college):
+        """
+            Update a users information in self.collection.
+
+            Args:
+                college: the college that is being updated
+        """
+
+        Id = college.Id
+        data = college.toDict() # Get item info formatted in a JSON friendly manner
+        data.pop('id') # remove the id, shouldn't be updating it
+
+        # find the item in our mongodb collection by its id,
+        # update it with the new data
+        self.collection.find_one_and_update({'_id': ObjectId(Id)}, {
+            "$set": data
+        }, upsert=False)
+
+
+    def remove(self, Id):
+        """
+            Remove a College from self.collection by its id.
 
             Args:
                 Id: the id of the listing to remove
@@ -337,3 +441,74 @@ class Admin(AbstractUser):
 
         }
         return output
+
+class College(ABC):
+
+    def __init__(self, Id=None, name=None, gpa=None):
+        """
+            Initialize self.
+
+            Args:
+                Id: the id of self
+                name: the name of self
+                gpa: the avg gpa of self
+        """
+        self.Id = Id
+        self.name = name                # Should be a string
+        self.gpa = gpa              # Should be a float/double
+
+    @classmethod
+    def fromDict(cls, doc):
+        college = cls()
+        college.Id = str(doc['_id'])
+        college.name = doc['name']
+        college.gpa = doc['gpa']
+        return college
+
+    # when convert to dict, set isAdmin to false
+    def toDict(self):
+        output = {
+            'id'            : self.Id,
+            'name'          : self.name,
+            'gpa'           : self.gpa,
+        }
+        return output
+
+    @property
+    def Id(self):
+        return self.__Id
+
+    @Id.setter
+    def Id(self, Id):
+        self.__Id = Id
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
+    def gpa(self):
+        return self.__gpa
+
+    @gpa.setter
+    def gpa(self, gpa):
+        self.__gpa = gpa
+
+    def __eq__(self, otherUser):
+        if self.Id != otherUser.Id:
+            return False
+        if self.name != otherUser.name:
+            return False
+        if self.gpa != otherUser.gpa:
+            return False
+        return True
+
+    def __str__(self):
+        return self.name + ': ' + self.gpa
+
+    def __repr__(self):
+        return str(self)

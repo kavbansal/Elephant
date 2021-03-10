@@ -35,6 +35,7 @@ def register_blueprints(application):
     Args:
         application: The flask application to register the Blueprint on.
     """
-    from app.controllers import users_router
+    from app.controllers import users_router, colleges_router
     
     application.register_blueprint(users_router)
+    application.register_blueprint(colleges_router)
