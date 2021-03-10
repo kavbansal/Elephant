@@ -40,7 +40,7 @@ def add_user():
 
 @users_router.route('/api/userinfo', methods=['PUT'])
 def update_user():
-    name = request.form['username']
+    name = request.form['name']
     email = request.form['email']
     matchingUser = mongo_user_dao.findAllMatchingEmail(email)
 

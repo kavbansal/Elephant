@@ -19,6 +19,8 @@ class DaoFactory():
         """
         if obj == 'user':
             return UserDao(args)
+        elif obj == 'college':
+            return CollegeDao(args)
         else:
             return None
 
