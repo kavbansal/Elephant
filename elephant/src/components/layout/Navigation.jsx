@@ -14,7 +14,9 @@ const Navigation = () => {
           <Nav className="ml-auto">
             <Nav.Link href="/add">About</Nav.Link>
           </Nav>
-          
+          <Nav className="ml-auto">
+            <Nav.Link href="/schools">Schools</Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
       
