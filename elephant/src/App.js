@@ -10,6 +10,7 @@ import Add from './components/pages/Add';
 
 
 import "./App.css";
+import MentorDashboard from "./components/pages/MentorDashboard";
 
 const App = () => {
   return (
@@ -23,8 +24,9 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route path="/add" component={Add} />
             <Route path="/schools" component={Schools} />
-            <Route path="/schoolprofile" component={SchoolProfile} />
             <Route path="/signup" component={Signup} />
+            <Route path="/schoolProfile" component={SchoolProfile} />
+            <Route path="/mentorDashboard" component={MentorDashboard} />
             {/* Will probably replace this with /schools/id or /schools/name in future */}
             {/* Temporarily using Login component instead of Facebook Component */}
             
