@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Navigation from './components/layout/Navigation';
 import Schools from './components/pages/Schools';
+import Signup from './components/pages/Signup';
 import SchoolProfile from './components/pages/SchoolProfile';
 import Add from './components/pages/Add';
 
@@ -22,7 +23,8 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route path="/add" component={Add} />
             <Route path="/schools" component={Schools} />
-            <Route path="/schoolprofile" component={SchoolProfile} /> 
+            <Route path="/schoolprofile" component={SchoolProfile} />
+            <Route path="/signup" component={Signup} />
             {/* Will probably replace this with /schools/id or /schools/name in future */}
             {/* Temporarily using Login component instead of Facebook Component */}
             
