@@ -51,49 +51,35 @@ function ProductValues(props) {
         <Grid container spacing={5}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/productValues1.svg"
-                alt="suitcase"
-              />
               <Typography variant="h6" className={classes.title}>
-                The best luxury hotels
+               
               </Typography>
               <Typography variant="h5">
-                {'From the latest trendy boutique hotel to the iconic palace with XXL pool'}
-                {', go for a mini-vacation just a few subway stops away from your home.'}
+                
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item xs={12} md={20}>
+            <div className={classes.item}>
+              
+              <Typography variant="h6" className={classes.title}>
+                About Us
+              </Typography>
+              <Typography variant="h5">
+                {'Elephant allows college applicants to better understand how they would fit at each of their '}
+                {'top schools and to put their best foot forward in their applications. With the help of real college '}
+                {'student mentors, this app will make college applications simpler and more transparent than ever before.'}
               </Typography>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/productValues2.svg"
-                alt="graph"
-              />
+              
               <Typography variant="h6" className={classes.title}>
-                New experiences
+                
               </Typography>
               <Typography variant="h5">
-                {'Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… '}
-                {'your Sundays will not be alike.'}
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/productValues3.svg"
-                alt="clock"
-              />
-              <Typography variant="h6" className={classes.title}>
-                Exclusive rates
-              </Typography>
-              <Typography variant="h5">
-                {'By registering, you will access specially negotiated rates '}
-                {'that you will not find anywhere else.'}
+                
               </Typography>
             </div>
           </Grid>

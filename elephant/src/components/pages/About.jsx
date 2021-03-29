@@ -16,11 +16,11 @@ export default class Add extends Component {
     return (
       <React.Fragment>
         <ProductHero />
-        <AboutDescription/>
+        {/* <AboutDescription/> */}
         <ProductValues />
         <ProductHowItWorks />
-        <ProductCTA />
-        <ProductSmokingHero />
+        {/* <ProductCTA />
+        <ProductSmokingHero /> */}
       </React.Fragment>
     );
   }

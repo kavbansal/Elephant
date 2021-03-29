@@ -164,7 +164,7 @@ function Schools(){
                                           <Typography variant="subtitle2" component="p">
                                           </Typography>
                                           <Typography variant="subtitle2" color="textSecondary" component="p">
-                                              Date 1
+                                              
                                           </Typography>
                                       </Box>
                                   </Box>
@@ -199,7 +199,7 @@ function Schools(){
 
                                           </Typography>
                                           <Typography variant="subtitle2" color="textSecondary" component="p">
-                                              Date 2
+                                              
                                           </Typography>
                                       </Box>
                                   </Box>
@@ -232,7 +232,7 @@ function Schools(){
                                           <Typography variant="subtitle2" component="p">
                                           </Typography>
                                           <Typography variant="subtitle2" color="textSecondary" component="p">
-                                              Date 3
+                                              
                                           </Typography>
                                       </Box>
                                   </Box>
@@ -266,7 +266,7 @@ function Schools(){
 
                                           </Typography>
                                           <Typography variant="subtitle2" color="textSecondary" component="p">
-                                              Date 4
+                                              
                                           </Typography>
                                       </Box>
                                   </Box>

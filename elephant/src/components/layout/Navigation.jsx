@@ -30,10 +30,10 @@ const useStyles = makeStyles({
 });
 
 const navLinks = [
-  { title: `About`, path: `/add` },
+  { title: `About`, path: `/about` },
   { title: `Schools`, path: `/schools` },
-  { title: `Profile`, path: `/studentProfile` },
-  { title: `Mentor`, path: `/mentorDashboard` },
+  { title: `Dashboard`, path: `/studentDashboard` },
+  /* { title: `Mentor`, path: `/mentorDashboard` }, */
   { title: `Login`, path: `/signin` },
 ]
 

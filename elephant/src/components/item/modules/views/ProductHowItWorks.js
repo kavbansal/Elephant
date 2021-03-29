@@ -70,40 +70,24 @@ function ProductHowItWorks(props) {
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
                 <div className={classes.number}>1.</div>
-                <img
-                  src="/productHowItWorks1.svg"
-                  alt="suitcase"
-                  className={classes.image}
-                />
                 <Typography variant="h5" align="center">
-                  Appointment every Wednesday 9am.
+                  Find schools you like by filtering through our selection and using the Q&A boards attached to each school.
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
-                <img
-                  src="/productHowItWorks2.svg"
-                  alt="graph"
-                  className={classes.image}
-                />
                 <Typography variant="h5" align="center">
-                  First come, first served. Our offers are in limited quantities, so be quick.
+                  Find mentors on school pages who suit your needs by looking at their Q&A activity and their interests.
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
                 <div className={classes.number}>3.</div>
-                <img
-                  src="/productHowItWorks3.svg"
-                  alt="clock"
-                  className={classes.image}
-                />
                 <Typography variant="h5" align="center">
-                  {'New offers every week. New experiences, new surprises. '}
-                  {'Your Sundays will no longer be alike.'}
+                  Set up meetings with mentors to get application help or advice on choosing a school, major, etc.
                 </Typography>
               </div>
             </Grid>
@@ -115,7 +99,7 @@ function ProductHowItWorks(props) {
           variant="contained"
           className={classes.button}
           component="a"
-          href="/premium-themes/onepirate/sign-up/"
+          href="/signup"
         >
           Get started
         </Button>

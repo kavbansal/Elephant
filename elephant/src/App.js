@@ -7,13 +7,14 @@ import Schools from './components/pages/Schools';
 import Signin from './components/pages/Signin';
 import Signup from './components/pages/Signup';
 import SchoolProfile from './components/pages/SchoolProfile';
-import Add from './components/pages/Add';
+import About from './components/pages/About';
 import StudentForm from './components/pages/StudentForm';
 import MentorForm from './components/pages/MentorForm';
 
 
 import "./App.css";
 import MentorDashboard from "./components/pages/MentorDashboard";
+import StudentDashboard from "./components/pages/StudentDashboard";
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
             {/* az-Protected route is not working, so using old way */}
             {/* <ProtectedRoute path="/add" user={false} component={Add} /> */}
             <Route exact path="/" component={Home} />
-            <Route path="/add" component={Add} />
+            <Route path="/about" component={About} />
             <Route path="/schools" component={Schools} />
             <Route path="/signin" component={Signin} />
             <Route path="/schoolProfile" component={SchoolProfile} />
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/signup" component={Signup} />
             <Route path="/studentSignupForm" component={StudentForm} />
             <Route path="/mentorSignupForm" component={MentorForm} />
+            <Route path="/studentDashboard" component={StudentDashboard} />
             {/* Will probably replace this with /schools/id or /schools/name in future */}
             {/* Temporarily using Login component instead of Facebook Component */}
             
