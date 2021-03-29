@@ -108,9 +108,6 @@ function Schools(){
     const classes = useStyles();
     return (
       <React.Fragment>
-        <h1>View Universities</h1><br/>
-        <h2>List of schools will go here</h2>
-        <a href="/schoolProfile"><h4>School Profile</h4></a>
         <div className="App">
               <AppBar className={classes.appBar} position="static">
                   <Toolbar>
