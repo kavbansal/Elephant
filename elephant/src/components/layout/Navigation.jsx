@@ -45,7 +45,7 @@ const Navigation = () => {
       <Toolbar>
         <Container maxWidth="md" className={classes.navbarDisplayFlex}>
           <IconButton edge="start" color="inherit" aria-label="home">
-            <Home fontSize="large" />
+            <img src='/LOGO_temp.PNG' alt='logo' width="70" height="45"/>
           </IconButton>
           <Hidden smDown>
             <List
