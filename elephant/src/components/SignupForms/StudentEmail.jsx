@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from 'prop-types';
 
 export default function StudentEmail() {
   return (
@@ -47,4 +48,8 @@ export default function StudentEmail() {
           </Grid>
     </React.Fragment>
   );
+}
+
+StudentEmail.propTypes = {
+  submitEmailForm: PropTypes.func.isRequired
 }

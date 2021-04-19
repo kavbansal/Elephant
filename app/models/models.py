@@ -101,12 +101,12 @@ class UserDao(DatabaseObject):
         userDoc = self.collection.find_one({"_id": ObjectId(Id)})
 
         # Serialize it into an User object
-        newUser = User.fromDict(userDoc)
+        newUser = Student.fromDict(userDoc)
 
-        if (userDoc['isAdmin']):
-            return Admin.fromDict(userDoc)
+        if (userDoc['isMentor']):
+            return Mentor.fromDict(userDoc)
         else:
-            return User.fromDict(userDoc)
+            return Student.fromDict(userDoc)
         # return [User.fromDict(userDoc) for userDoc in filteredUsers]
 
     def findAllMatchingEmail(self, email):
@@ -127,10 +127,10 @@ class UserDao(DatabaseObject):
         output = []
         # Serialize documents into Item objects and return them in a list
         for userDoc in filteredUsers:
-            if (userDoc['isAdmin']):
-                output.append(Admin.fromDict(userDoc))
+            if (userDoc['isMentor']):
+                output.append(Mentor.fromDict(userDoc))
             else:
-                output.append(User.fromDict(userDoc))
+                output.append(Student.fromDict(userDoc))
         return output
 
     def findAll(self):
@@ -148,10 +148,10 @@ class UserDao(DatabaseObject):
         output = []
         # Serialize documents into Item objects and return them in a list
         for userDoc in filteredUsers:
-            if (userDoc['isAdmin']):
-                output.append(Admin.fromDict(userDoc))
+            if (userDoc['isMentor']):
+                output.append(Mentor.fromDict(userDoc))
             else:
-                output.append(User.fromDict(userDoc))
+                output.append(Student.fromDict(userDoc))
         return output
 
 
@@ -316,7 +316,7 @@ class AbstractUser(ABC):
         An abstract class representing what a basic user should be able to do.
         Should not be instantiated.
     """
-    def __init__(self, Id=None, name=None, email=None):
+    def __init__(self, Id=None, name=None, email=None, password=None):
         """
             Initialize self.
 
@@ -324,10 +324,12 @@ class AbstractUser(ABC):
                 Id: the id of self
                 name: the name of self
                 email: the email of self
+                password: the user password
         """
         self.Id = Id
         self.name = name                # Should be a string
         self.email = email              # Should be a string
+        self.password = password
 
     @classmethod
     def fromDict(cls, doc):
@@ -344,6 +346,7 @@ class AbstractUser(ABC):
         abstractUser.Id = str(doc['_id'])
         abstractUser.name = doc['name']
         abstractUser.email = doc['email']
+        abstractUser.password = doc['password']
         return abstractUser
 
     @abstractmethod
@@ -379,12 +382,22 @@ class AbstractUser(ABC):
     def email(self, email):
         self.__email = email
 
+    @property
+    def password(self):
+        return self.__password
+
+    @password.setter
+    def password(self, password):
+        self.__password = password
+
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
             return False
         if self.name != otherUser.name:
             return False
         if self.email != otherUser.email:
+            return False
+        if self.password != otherUser.password:
             return False
         return True
 
@@ -395,19 +408,20 @@ class AbstractUser(ABC):
         return str(self)
 
 
-class User(AbstractUser):
+class Student(AbstractUser):
 
-    def __init__(self, Id=None, name=None, email=None):
-        super().__init__(Id, name, email)
+    def __init__(self, Id=None, name=None, email=None, password=None):
+        super().__init__(Id, name, email, password)
 
     @classmethod
     def fromDict(cls, doc):
-        user = cls()
-        user.Id = str(doc['_id'])
-        user.name = doc['name']
-        user.email = doc['email']
+        student = cls()
+        student.Id = str(doc['_id'])
+        student.name = doc['name']
+        student.email = doc['email']
+        student.password = doc['password']
 
-        return user
+        return student
 
     # when convert to dict, set isAdmin to false
     def toDict(self):
@@ -415,23 +429,25 @@ class User(AbstractUser):
             'id'            : self.Id,
             'name'          : self.name,
             'email'         : self.email,
-            'isAdmin'       : False
+            'password'      : self.password,
+            'isMentor'       : False
         }
         return output
 
 
-class Admin(AbstractUser):
-    def __init__(self, Id=None, name=None, email=None):
-        super().__init__(Id, name, email)
+class Mentor(AbstractUser):
+    def __init__(self, Id=None, name=None, email=None, password=None):
+        super().__init__(Id, name, email, password)
 
     @classmethod
     def fromDict(cls, doc):
-        admin = cls()
-        admin.Id = str(doc['_id'])
-        admin.name = doc['name']
-        admin.email = doc['email']
+        mentor = cls()
+        mentor.Id = str(doc['_id'])
+        mentor.name = doc['name']
+        mentor.email = doc['email']
+        mentor.password = doc['password']
 
-        return admin
+        return mentor
 
     # when convert to dict, set isAdmin to true
     def toDict(self):
@@ -439,7 +455,8 @@ class Admin(AbstractUser):
             'id'            : self.Id,
             'name'          : self.name,
             'email'         : self.email,
-            'isAdmin'       : True
+            'password'         : self.password,
+            'isMentor'       : True
 
         }
         return output

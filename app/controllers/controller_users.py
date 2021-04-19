@@ -2,7 +2,7 @@ from pathlib import Path
 
 from flask import Blueprint, jsonify, request, send_from_directory, send_file
 from app import mongo
-from app.models.models import User, AbstractUser, Admin, UserDao, College, CollegeDao, DaoFactory
+from app.models.models import Student, AbstractUser, Mentor, UserDao, College, CollegeDao, DaoFactory
 
 users_router = Blueprint("user", __name__)
 colleges_router = Blueprint("college", __name__)
@@ -19,6 +19,7 @@ adminEmails = ['jacobl7893@gmail.com']
 def add_user():
     name = request.form['name']
     email = request.form['email']
+    password = request.form['password']
     
     # Find a matching user
     matchingUser = mongo_user_dao.findAllMatchingEmail(email)
@@ -27,13 +28,12 @@ def add_user():
     if matchingUser:
         return jsonify(matchingUser[0].toDict()), 200
     
-
     if (email in adminEmails):
-        user = Admin(name=name, email=email)
+        user = Mentor(name=name, email=email, password=password)
         mongo_user_dao.insert(user)
         return jsonify(user.toDict()), 200
     else:
-        user = User(name=name, email=email)
+        user = Student(name=name, email=email, password=password)
         mongo_user_dao.insert(user)
         return jsonify(user.toDict()), 200
         
@@ -42,14 +42,15 @@ def add_user():
 def update_user():
     name = request.form['name']
     email = request.form['email']
+    password = request.form['password']
     matchingUser = mongo_user_dao.findAllMatchingEmail(email)
 
-    if (isinstance(matchingUser[0], Admin)):
-        user = Admin(Id=matchingUser[0].Id, name=name, email=email)
+    if (isinstance(matchingUser[0], Mentor)):
+        user = Mentor(Id=matchingUser[0].Id, name=name, email=email, password=password)
         mongo_user_dao.update(user)
         return jsonify(user.toDict()), 200
     else:
-        user = User(Id=matchingUser[0].Id, name=name, email=email)
+        user = Student(Id=matchingUser[0].Id, name=name, email=email, password=password)
         mongo_user_dao.update(user)
         return jsonify(user.toDict()), 200
     

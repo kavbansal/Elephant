@@ -13,19 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import StudentEmail from '../SignupForms/StudentEmail';
 import StudentName from '../SignupForms/StudentName';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -63,22 +50,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Log In', 'Personal Details'];
+const steps = ['Sign Up', 'Personal Details'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <StudentEmail />;
+      return <StudentEmail submitEmailForm={this.submitEmailForm}/>;
     case 1:
-      return <StudentName />;
+      return <StudentName submitNameForm={this.submitNameForm}/>;
     default:
       throw new Error('Unknown step');
   }
 }
 
-export default function Checkout() {
+export default function StudentForm() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const state = {
+    name: '',
+    email: "",
+    password:""
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -87,6 +79,31 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  
+  const resetState = () => {
+    this.setState({
+      name: '',
+      email: "",
+      password:""
+    });
+  }
+  
+  const submitEmailForm = (email, password) => {
+    this.setState(
+      {
+        email: email,
+        password: password
+      }
+    )
+  }
+  
+  const submitNameForm = (name) => {
+    this.setState(
+      {
+        name: name
+      }
+    )
+  }
 
   return (
     <React.Fragment>
@@ -109,9 +126,9 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Thank you for signing up.
                 </Typography>
-                <Typography variant="subtitle1">
+                {/* <Typography variant="subtitle1">
                   We have sent you a verification email.
-                </Typography>
+                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>

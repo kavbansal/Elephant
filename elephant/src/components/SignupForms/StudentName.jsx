@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from 'prop-types';
 
 export default function StudentName() {
   return (
@@ -57,4 +58,8 @@ export default function StudentName() {
         </Grid>
     </React.Fragment>
   );
+}
+
+StudentName.propTypes = {
+  submitNameForm: PropTypes.func.isRequired
 }
