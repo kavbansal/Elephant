@@ -446,6 +446,7 @@ class Mentor(AbstractUser):
         mentor.name = doc['name']
         mentor.email = doc['email']
         mentor.password = doc['password']
+        # mentor.schoolId = str(doc['_schoolId'])
 
         return mentor
 
@@ -455,7 +456,8 @@ class Mentor(AbstractUser):
             'id'            : self.Id,
             'name'          : self.name,
             'email'         : self.email,
-            'password'         : self.password,
+            'password'      : self.password,
+            # 'schoolId'      : self.schoolId,
             'isMentor'       : True
 
         }

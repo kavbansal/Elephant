@@ -62,13 +62,13 @@ function ProductValues(props) {
           <Grid item xs={12} md={20}>
             <div className={classes.item}>
               
-              <Typography variant="h6" className={classes.title}>
+              <Typography variant="h3" className={classes.title}>
                 About Us
               </Typography>
               <Typography variant="h5">
                 {'Elephant allows college applicants to better understand how they would fit at each of their '}
-                {'top schools and to put their best foot forward in their applications. With the help of real college '}
-                {'student mentors, this app will make college applications simpler and more transparent than ever before.'}
+                {'top schools and how to put their best foot forward in their applications. With the help of real college '}
+                {'student mentors, we aim to make college applications simpler and more transparent than ever before!'}
               </Typography>
             </div>
           </Grid>

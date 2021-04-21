@@ -71,7 +71,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>1.</div>
                 <Typography variant="h5" align="center">
-                  Find schools you like by filtering through our selection and using the Q&A boards attached to each school.
+                  Find schools you are interested in by filtering through our selection and viewing the latest data and verified Q&A boards attached to each school.
                 </Typography>
               </div>
             </Grid>
@@ -79,7 +79,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <Typography variant="h5" align="center">
-                  Find mentors on school pages who suit your needs by looking at their Q&A activity and their interests.
+                  Find current college student mentors at these schools who you would like to connect with by looking at their Q&A activity and interests.
                 </Typography>
               </div>
             </Grid>
@@ -87,7 +87,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>3.</div>
                 <Typography variant="h5" align="center">
-                  Set up meetings with mentors to get application help or advice on choosing a school, major, etc.
+                  Set up consultation meetings with mentors for essay/application help, fit assessments at each school, tailored advice on choosing a school or major, and more!
                 </Typography>
               </div>
             </Grid>

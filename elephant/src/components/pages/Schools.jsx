@@ -139,7 +139,7 @@ function Schools(){
                   <Grid container spacing={3}>
                       <Grid item xs={12} sm={6} md={4}>
                           <Card className={classes.card}>
-                              <CardActionArea a href="/">
+                              <CardActionArea a href="/schoolProfile">
                                   <CardMedia
                                       className={classes.media}
                                       image="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWdYt2vIBYlQ/v1/1000x-1.jpg"
@@ -176,7 +176,7 @@ function Schools(){
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
                           <Card className={classes.card}>
-                              <CardActionArea href="/">
+                              <CardActionArea href="/schoolProfile">
                                   <CardMedia
                                       className={classes.media}
                                       image="https://www.commonapp.org/static/20f424969b58e494e871e8f724c19374/columbia-university_445.png"
@@ -211,7 +211,7 @@ function Schools(){
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
                           <Card className={classes.card}>
-                              <CardActionArea href="/">
+                              <CardActionArea href="/schoolProfile">
                                   <CardMedia
                                       className={classes.media}
                                       image="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg"
@@ -244,7 +244,7 @@ function Schools(){
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
                           <Card className={classes.card}>
-                              <CardActionArea href="/">
+                              <CardActionArea href="/schoolProfile">
                                   <CardMedia
                                       className={classes.media}
                                       image="https://ischoolconnect.com/blog/wp-content/uploads/2018/12/31131766_205810363346714_1550189117445242880_n-1.jpg"
