@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -34,35 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleSignIn = e =>{
-  e.preventDefault() ;
-  let url = "http://localhost:5000/login"
-  let formData  = new FormData();
-  let data = this.state;
-  for(let name in data) {
-    formData.append(name, data[name]);
-  }
-
-  fetch(url, {
-    method: 'POST',
-    body: formData
-  }).then( res => res.json())
-  .then(data=>{
-    localStorage.setItem('access_token', data.access_token);
-    
-    localStorage.setItem('username', data.username);
-
-    if (localStorage.getItem("access_token") !== null && localStorage.getItem("access_token")!=="undefined") {
-      window.location.replace("/")
-    }else{
-        alert(data.error);
-    }
-  }).catch(err => console.log(err));
-}
-
-
 export default function SignIn() {
   const classes = useStyles();
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -106,7 +80,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={this.handleSignIn()}
+            href='/schools'
           >
             Sign In
           </Button>

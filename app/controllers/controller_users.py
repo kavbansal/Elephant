@@ -13,13 +13,12 @@ mongo_user_dao = daoFactory.getDao('user', usersColl) # initialize a DAO with th
 collegesColl = mongo.db.colleges
 mongo_college_dao = daoFactory.getDao('college', collegesColl)
 
-adminEmails = ['jacobl7893@gmail.com']
-
 @users_router.route('/api/userinfo', methods=['POST'])
 def add_user():
     name = request.form['name']
     email = request.form['email']
     password = request.form['password']
+    isMentor = request.form['isMentor']
     
     # Find a matching user
     matchingUser = mongo_user_dao.findAllMatchingEmail(email)
@@ -28,7 +27,7 @@ def add_user():
     if matchingUser:
         return jsonify(matchingUser[0].toDict()), 200
     
-    if (email in adminEmails):
+    if (isMentor):
         user = Mentor(name=name, email=email, password=password)
         mongo_user_dao.insert(user)
         return jsonify(user.toDict()), 200
