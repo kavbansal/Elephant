@@ -35,6 +35,7 @@ const navLinks = [
   { title: `Dashboard`, path: `/studentDashboard` },
   /* { title: `Mentor`, path: `/mentorDashboard` }, */
   { title: `Login`, path: `/signin` },
+  { title: 'Q&A', path: '/QnA'},
 ]
 
 const Navigation = () => {
