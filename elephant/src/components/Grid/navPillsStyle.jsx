@@ -19,7 +19,8 @@ const navPillsStyle = theme => ({
         fontWeight: "500",
         position: "relative",
         display: "block",
-        color: "inherit"
+        color: "inherit",
+        align: "left"
     },
     flexContainer: {
         [theme.breakpoints.down("xs")]: {
@@ -40,9 +41,10 @@ const navPillsStyle = theme => ({
         float: "left",
         position: "relative",
         display: "block",
-        borderRadius: "30px",
+        borderRadius: "5px",
         minWidth: "100px",
-        textAlign: "center",
+        textAlign: "left",
+        alignContent: "left",
         transition: "all .3s",
         padding: "10px 15px",
         color: "#555555",
