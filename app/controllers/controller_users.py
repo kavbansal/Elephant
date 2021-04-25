@@ -27,14 +27,9 @@ def add_user():
     if matchingUser:
         return jsonify(matchingUser[0].toDict()), 200
     
-    if (isMentor):
-        user = Mentor(name=name, email=email, password=password)
-        mongo_user_dao.insert(user)
-        return jsonify(user.toDict()), 200
-    else:
-        user = Student(name=name, email=email, password=password)
-        mongo_user_dao.insert(user)
-        return jsonify(user.toDict()), 200
+    user = Student(name=name, email=email, password=password, isMentor=isMentor)
+    mongo_user_dao.insert(user)
+    return jsonify(user.toDict()), 200
         
 
 @users_router.route('/api/userinfo', methods=['PUT'])

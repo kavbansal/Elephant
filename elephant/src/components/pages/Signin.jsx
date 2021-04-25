@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
+import axios from "axios";
 
 
 const styles = theme => ({
@@ -37,11 +40,46 @@ const styles = theme => ({
 
 
 //const [formData, setFormData] = useState({email: "", password: ""})
+/* const {
+  setName,
+  email,
+  setEmail,
+  userID,
+  setUserID,
+  setMentor,
+} = useContext(AuthContext); */
 
 export class Signin extends Component {
-  
+  constructor(props){
+    super(props);
+    this.state = {
+      email:"",
+      password:""
+    }
+ }
+
+  onChange= (e) => {
+    let nam = event.target.name;
+    let val = event.target.value;
+    this.setState({[nam]: val});
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    //var data = new FormData();
+    //data.append("email", this.state.email);
+    //data.append("password", this.state.password);
+
+    axios.get("/api/userinfo/" + this.state.email
+    ).then((res) => {
+      alert(res.data[0].email)
+    });
+    
+  }
+
   render() {
     const { classes } = this.props;
+
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -52,8 +90,10 @@ export class Signin extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={this.onSubmit} className={classes.form} noValidate>
             <TextField
+              //value={this.state.email}
+              onChange={this.onChange}
               variant="outlined"
               margin="normal"
               required
@@ -65,6 +105,8 @@ export class Signin extends Component {
               autoFocus
             />
             <TextField
+              //value={this.state.password}
+              onChange={this.onChange}
               variant="outlined"
               margin="normal"
               required
@@ -85,7 +127,7 @@ export class Signin extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              href='/schools'
+              //href='/schools'
             >
               Sign In
             </Button>

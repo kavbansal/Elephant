@@ -316,7 +316,7 @@ class AbstractUser(ABC):
         An abstract class representing what a basic user should be able to do.
         Should not be instantiated.
     """
-    def __init__(self, Id=None, name=None, email=None, password=None):
+    def __init__(self, Id=None, name=None, email=None, password=None, isMentor=None):
         """
             Initialize self.
 
@@ -325,11 +325,13 @@ class AbstractUser(ABC):
                 name: the name of self
                 email: the email of self
                 password: the user password
+                isMentor: true if user is a mentor
         """
         self.Id = Id
         self.name = name                # Should be a string
         self.email = email              # Should be a string
         self.password = password
+        self.isMentor = isMentor
 
     @classmethod
     def fromDict(cls, doc):
@@ -347,6 +349,7 @@ class AbstractUser(ABC):
         abstractUser.name = doc['name']
         abstractUser.email = doc['email']
         abstractUser.password = doc['password']
+        abstractUser.isMentor = doc['isMentor']
         return abstractUser
 
     @abstractmethod
@@ -390,6 +393,14 @@ class AbstractUser(ABC):
     def password(self, password):
         self.__password = password
 
+    @property
+    def isMentor(self):
+        return self.__isMentor
+
+    @isMentor.setter
+    def isMentor(self, isMentor):
+        self.__isMentor = isMentor
+
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
             return False
@@ -398,6 +409,8 @@ class AbstractUser(ABC):
         if self.email != otherUser.email:
             return False
         if self.password != otherUser.password:
+            return False
+        if self.isMentor != otherUser.isMentor:
             return False
         return True
 
@@ -410,8 +423,8 @@ class AbstractUser(ABC):
 
 class Student(AbstractUser):
 
-    def __init__(self, Id=None, name=None, email=None, password=None):
-        super().__init__(Id, name, email, password)
+    def __init__(self, Id=None, name=None, email=None, password=None, isMentor=None):
+        super().__init__(Id, name, email, password, isMentor)
 
     @classmethod
     def fromDict(cls, doc):
@@ -420,6 +433,7 @@ class Student(AbstractUser):
         student.name = doc['name']
         student.email = doc['email']
         student.password = doc['password']
+        student.isMentor = doc['isMentor']
 
         return student
 
@@ -436,8 +450,8 @@ class Student(AbstractUser):
 
 
 class Mentor(AbstractUser):
-    def __init__(self, Id=None, name=None, email=None, password=None):
-        super().__init__(Id, name, email, password)
+    def __init__(self, Id=None, name=None, email=None, password=None, isMentor=None):
+        super().__init__(Id, name, email, password, isMentor)
 
     @classmethod
     def fromDict(cls, doc):
@@ -446,6 +460,7 @@ class Mentor(AbstractUser):
         mentor.name = doc['name']
         mentor.email = doc['email']
         mentor.password = doc['password']
+        mentor.isMentor = doc['isMentor']
         # mentor.schoolId = str(doc['_schoolId'])
 
         return mentor
