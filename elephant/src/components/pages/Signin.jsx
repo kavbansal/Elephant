@@ -72,7 +72,9 @@ export class Signin extends Component {
 
     axios.get("/api/userinfo/" + this.state.email
     ).then((res) => {
-      alert(res.data[0].email)
+      if (res.data[0].password == this.state.password) {
+        this.props.history.push('/schools')
+      } 
     });
     
   }
