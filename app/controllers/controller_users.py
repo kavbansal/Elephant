@@ -2,7 +2,7 @@ from pathlib import Path
 
 from flask import Blueprint, jsonify, request, send_from_directory, send_file
 from app import mongo
-from app.models.models import Student, AbstractUser, Mentor, UserDao, College, CollegeDao, DaoFactory
+from app.models.models import Student, AbstractUser, Mentor, UserDao, College, CollegeDao, DaoFactory, Appointment, Question, Answer
 
 users_router = Blueprint("user", __name__)
 colleges_router = Blueprint("college", __name__)

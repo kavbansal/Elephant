@@ -548,3 +548,271 @@ class College(ABC):
 
     def __repr__(self):
         return str(self)
+
+class Appointment(ABC):
+    def __init__(self, Id=None, student=None, mentor=None, dateTime = None):
+        """
+            Initialize self.
+
+            Args:
+                Id: the id of self
+                name: the name of self
+                gpa: the avg gpa of self
+        """
+        self.Id = Id
+        self.student = student
+        self.mentor = mentor
+        self.dateTime = dateTime
+
+    @classmethod
+    def fromDict(cls, doc):
+        appointment = cls()
+        appointment.Id = str(doc['_id'])
+        appointment.student = doc['student']
+        appointment.mentor = doc['mentor']
+        appointment.dateTime = doc['dateTime']
+        return appointment
+
+    def toDict(self):
+        output = {
+            'id'            : self.Id,
+            'student'       : self.student,
+            'mentor'        : self.mentor,
+            'dateTime'      : self.dateTime,
+        }
+        return output
+
+    @property
+    def Id(self):
+        return self.__Id
+
+    @Id.setter
+    def Id(self, Id):
+        self.__Id = Id
+
+    @property
+    def student(self):
+        return self.__student
+
+    @student.setter
+    def student(self, student):
+        self.__student = student
+
+    @property
+    def mentor(self):
+        return self.__mentor
+
+    @mentor.setter
+    def mentor(self, mentor):
+        self.__mentor = mentor
+
+    @property
+    def dateTime(self):
+        return self.__dateTime
+
+    @dateTime.setter
+    def dateTime(self, dateTime):
+        self.__dateTime = dateTime
+
+    def __eq__(self, otherUser):
+        if self.Id != otherUser.Id:
+            return False
+        if self.student != otherUser.student:
+            return False
+        if self.mentor != otherUser.mentor:
+            return False
+        if self.dateTime != otherUser.dateTime:
+            return False
+        return True
+
+    def __str__(self):
+        return self.student + ': ' + self.mentor + ': ' + self.dateTime
+
+    def __repr__(self):
+        return str(self)
+
+
+class Question(ABC):
+    def __init__(self, Id=None, schoolId=None, poster=None, body=None, likes=None):
+        """
+            Initialize self.
+
+            Args:
+                Id: the id of self
+                name: the name of self
+                gpa: the avg gpa of self
+        """
+        self.Id = Id
+        self.schoolId = schoolId
+        self.poster = poster
+        self.body = body
+        self.likes = likes
+
+    @classmethod
+    def fromDict(cls, doc):
+        question = cls()
+        question.Id = str(doc['_id'])
+        question.schoolId = str(doc['schoolId'])
+        question.poster = doc['poster']
+        question.body = doc['body']
+        question.likes = doc['likes']
+        return question
+
+    def toDict(self):
+        output = {
+            'id'            : self.Id,
+            'schoolId'      : self.schoolId,
+            'poster'        : self.poster,
+            'body'          : self.body,
+            'likes'         : self.likes,
+        }
+        return output
+
+    @property
+    def Id(self):
+        return self.__Id
+
+    @Id.setter
+    def Id(self, Id):
+        self.__Id = Id
+
+    @property
+    def schoolId(self):
+        return self.__schoolId
+
+    @schoolId.setter
+    def schoolId(self, schoolId):
+        self.__schoolId = schoolId
+
+    @property
+    def poster(self):
+        return self.__poster
+
+    @poster.setter
+    def poster(self, poster):
+        self.__poster = poster
+
+    @property
+    def body(self):
+        return self.__body
+
+    @body.setter
+    def body(self, body):
+        self.__body = body
+
+    @property
+    def likes(self):
+        return self.__likes
+
+    @likes.setter
+    def likes(self, likes):
+        self.__likes = likes
+
+    def __eq__(self, otherUser):
+        if self.Id != otherUser.Id:
+            return False
+        if self.schoolId != otherUser.schoolId:
+            return False
+        if self.poster != otherUser.poster:
+            return False
+        return True
+
+    def __str__(self):
+        return self.poster + ': ' + self.body
+
+    def __repr__(self):
+        return str(self)
+
+class Answer(ABC):
+    def __init__(self, Id=None, questionId=None, schoolId=None, poster=None, body=None, likes=None):
+        """
+            Initialize self.
+
+            Args:
+                Id: the id of self
+                name: the name of self
+                gpa: the avg gpa of self
+        """
+        self.Id = Id
+        self.questionId = questionId
+        self.schoolId = schoolId
+        self.poster = poster
+        self.body = body
+        self.likes = likes
+
+    @classmethod
+    def fromDict(cls, doc):
+        answer = cls()
+        answer.Id = str(doc['_id'])
+        answer.questionId = str(doc['questionId'])
+        answer.schoolId = str(doc['schoolId'])
+        answer.poster = doc['poster']
+        answer.body = doc['body']
+        answer.likes = doc['likes']
+        return answer
+
+    def toDict(self):
+        output = {
+            'id'            : self.Id,
+            'questionId'    : self.questionId,
+            'schoolId'      : self.schoolId,
+            'poster'        : self.poster,
+            'body'          : self.body,
+            'likes'         : self.likes,
+        }
+        return output
+
+    @property
+    def Id(self):
+        return self.__Id
+
+    @Id.setter
+    def Id(self, Id):
+        self.__Id = Id
+
+    @property
+    def schoolId(self):
+        return self.__schoolId
+
+    @schoolId.setter
+    def schoolId(self, schoolId):
+        self.__schoolId = schoolId
+
+    @property
+    def poster(self):
+        return self.__poster
+
+    @poster.setter
+    def poster(self, poster):
+        self.__poster = poster
+
+    @property
+    def body(self):
+        return self.__body
+
+    @body.setter
+    def body(self, body):
+        self.__body = body
+
+    @property
+    def likes(self):
+        return self.__likes
+
+    @likes.setter
+    def likes(self, likes):
+        self.__likes = likes
+
+    def __eq__(self, otherUser):
+        if self.Id != otherUser.Id:
+            return False
+        if self.schoolId != otherUser.schoolId:
+            return False
+        if self.poster != otherUser.poster:
+            return False
+        return True
+
+    def __str__(self):
+        return self.poster + ': ' + self.body
+
+    def __repr__(self):
+        return str(self)
