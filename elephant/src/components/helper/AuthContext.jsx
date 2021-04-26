@@ -21,11 +21,14 @@ export const AuthContextProvider = ({children}) => {
 
 	const prevMentor = getCookieValue("isMentor") || null;
 
+	const prevCollege = getCookieValue("college") || null;
+
 	
 	const [name, setName] = useState(prevName);
 	const [email, setEmail] = useState(prevEmail);
 	const [userID, setUserID] = useState(prevUserID);
 	const [isMentor, setMentor] = useState(prevMentor);
+	const [college, setCollege] = useState(prevCollege);
 
 	useEffect(
 		// this anonymous function will automatically update the cookies
@@ -34,8 +37,9 @@ export const AuthContextProvider = ({children}) => {
 			document.cookie = "email=" + email + "; path=/";
 			document.cookie = "userID=" + userID + "; path=/";
 			document.cookie = "isMentor=" + isMentor +"; path=/";
+			document.cookie = "college=" + college +"; path=/";
 		},
-		[name, email, userID, isMentor]
+		[name, email, userID, isMentor, college]
 	)
 	
 	const defaultContext = {
@@ -46,7 +50,9 @@ export const AuthContextProvider = ({children}) => {
 		userID,
 		setUserID,
 		isMentor,
-		setMentor
+		setMentor,
+		college,
+		setCollege
 	}
 
 	return (

@@ -107,3 +107,11 @@ def get_all_colleges():
 
     output = [college.toDict() for college in listOfColleges]
     return jsonify(output), 200
+
+@users_router.route('/api/collegeinfo/<id>', methods=['GET'])
+def get_college_by_id(id):
+    # get list of all items using DAO and specifying the tags
+    college = mongo_college_dao.findById(id)
+
+    output = college.toDict()
+    return jsonify(output), 200

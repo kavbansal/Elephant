@@ -18,6 +18,7 @@ import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -112,20 +113,26 @@ const useStyles = makeStyles((theme) => ({
 
 function Schools() {
     const [schoolList, setSchoolList] = useState([]);
+    const {college, setCollege} = useContext(AuthContext);
     const classes = useStyles();
+    const history = useHistory();
     const getSchools = e => {
         axios.get("/api/collegeinfo").then((res) => {
             setSchoolList(res.data);
         });
     } 
-
-    //const classes = useStyles();
+    
     useEffect(()=>{
         const tempList = getSchools();
     }, [])
-    //
-    //callSchools = this.getSchools();
-    //this.getSchools();
+
+    const handleClick = (value) => {
+        axios.get("/api/collegeinfo/" + value).then((res) => {
+            setCollege(res.data);
+            history.push("/schoolProfile");
+        });
+    };
+
     return (
         <React.Fragment>
             <div className="App">
@@ -162,7 +169,7 @@ function Schools() {
                         {schoolList.map(school => (
                             <Grid item xs={12} sm={6} md={4} key={school.Id}>
                             <Card className={classes.card}>
-                                <CardActionArea a href="/schoolProfile">
+                                <CardActionArea a onClick={() => handleClick(school.id)}>
                                     <CardMedia
                                         className={classes.media}
                                         image={school.image}
@@ -208,6 +215,5 @@ function Schools() {
         </React.Fragment>
     );
 }
-
 
 export default Schools;
