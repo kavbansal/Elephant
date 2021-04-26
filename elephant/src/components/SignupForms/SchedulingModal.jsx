@@ -79,7 +79,7 @@ export default function SchedulingModal() {
         <FormLabel component="legend">Session Type</FormLabel>
         <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
             <FormControlLabel value="essay" control={<Radio />} label="Essay Help" />
-            <FormControlLabel value="act" control={<Radio />} label="ACT Tutoring" />
+            <FormControlLabel value="test" control={<Radio />} label="Test Prep" />
             <FormControlLabel value="overview" control={<Radio />} label="School Overview" />
             <FormControlLabel value="major" control={<Radio />} label="Choosing a Major" />
             <FormControlLabel value="application" control={<Radio />} label="Application Help" />

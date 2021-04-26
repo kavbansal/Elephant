@@ -729,7 +729,7 @@ class Appointment(ABC):
         """
         self.Id = Id
         self.studentId = studentId
-        self.mentor = mentorId
+        self.mentorId = mentorId
         self.dateTime = dateTime
         self.sessionType = sessionType
 
@@ -774,7 +774,7 @@ class Appointment(ABC):
         return self.__mentorId
 
     @mentorId.setter
-    def mentor(self, mentorId):
+    def mentorId(self, mentorId):
         self.__mentorId = mentorId
 
     @property
@@ -796,9 +796,9 @@ class Appointment(ABC):
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
             return False
-        if self.student != otherUser.student:
+        if self.studentId != otherUser.studentId:
             return False
-        if self.mentor != otherUser.mentor:
+        if self.mentorId != otherUser.mentorId:
             return False
         if self.dateTime != otherUser.dateTime:
             return False
