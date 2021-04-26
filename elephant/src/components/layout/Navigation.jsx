@@ -1,4 +1,7 @@
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
+
 import {
   AppBar,
   Toolbar,
@@ -32,7 +35,7 @@ const useStyles = makeStyles({
 const navLinks = [
   { title: `About`, path: `/about` },
   { title: `Schools`, path: `/schools` },
-  { title: `Dashboard`, path: `/studentDashboard` },
+  /* { title: `Dashboard`, path: `/studentDashboard` }, */
   /* { title: `Mentor`, path: `/mentorDashboard` }, */
   { title: `Login`, path: `/signin` },
   { title: 'Q&A', path: '/QnA'},
@@ -40,6 +43,8 @@ const navLinks = [
 
 const Navigation = () => {
   const classes = useStyles();
+  //const { userID } = useContext(AuthContext);
+  
   return (
     //<div>
     <AppBar position="fixed">
@@ -61,6 +66,13 @@ const Navigation = () => {
                     </ListItem>
                   </a>
               ))}
+              {/* {userID !== "null" && userID !== "undefined" ? (
+                <a href='/studentDashboard' key='Dashboard' className={classes.linkText}>
+                <ListItem button>
+                  <ListItemText primary='Dashboard' />
+                </ListItem>
+                </a>
+              ) : null} */}
             </List>
           </Hidden>
           <Hidden mdUp>

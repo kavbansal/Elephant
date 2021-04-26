@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { useState }  from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,18 +7,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 
-const styles = theme => ({
+
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -36,7 +36,7 @@ const styles = theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-});
+}));
 
 
 //const [formData, setFormData] = useState({email: "", password: ""})
@@ -49,107 +49,104 @@ const styles = theme => ({
   setMentor,
 } = useContext(AuthContext); */
 
-export class Signin extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      email:"",
-      password:""
-    }
+function Signin() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const classes = useStyles();
+  const history = useHistory();
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
   }
 
-  onChange= (e) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({[nam]: val});
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
   }
 
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     //var data = new FormData();
     //data.append("email", this.state.email);
     //data.append("password", this.state.password);
 
-    axios.get("/api/userinfo/" + this.state.email
+    axios.get("/api/userinfo/" + email
     ).then((res) => {
-      if (res.data[0].password == this.state.password) {
-        this.props.history.push('/schools')
+      //alert(res.data[0].password)
+      //setUserID(res._id);
+      if (res.data[0].password == password) {
+        history.push("/schools");
       } 
     });
     
   }
 
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form onSubmit={this.onSubmit} className={classes.form} noValidate>
-            <TextField
-              //value={this.state.email}
-              onChange={this.onChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              //value={this.state.password}
-              onChange={this.onChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              //href='/schools'
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form onSubmit={onSubmit} className={classes.form} noValidate>
+          <TextField
+            //value={this.state.email}
+            onChange={onChangeEmail}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            //value={this.state.password}
+            onChange={onChangePassword}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            //href='/schools'
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-          </form>
-        </div>
-      </Container>
-    );
-  }
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
+  );
 }
 
-export default withStyles(styles)(Signin);
+export default Signin;
