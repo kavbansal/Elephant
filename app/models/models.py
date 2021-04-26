@@ -153,6 +153,25 @@ class UserDao(DatabaseObject):
             else:
                 output.append(Student.fromDict(userDoc))
         return output
+    
+    def findAllMentors(self):
+        """
+            Get all users in self.collection.
+
+            Returns:
+                a list of AbstractUsers
+        """
+
+        # Mongo query to get the items that have the specified tags from our
+        # mongodb collection
+        filteredUsers = self.collection.find()
+
+        output = []
+        # Serialize documents into Item objects and return them in a list
+        for userDoc in filteredUsers:
+            if (userDoc['isMentor']):
+                output.append(Mentor.fromDict(userDoc))
+        return output
 
 
     def insert(self, user):

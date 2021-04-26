@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,15 +12,15 @@ import InputBase from '@material-ui/core/InputBase';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import classes from './Schools';
 import { Button } from '@material-ui/core';
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
-
+import axios from "axios";
 
 
 function SchoolProfile() {
   const {college, setCollege} = useContext(AuthContext);
+  const [mentorList, setMentorList] = useState([]);
   const useStyles = makeStyles((theme) => ({
     hero: {
         backgroundImage: "url(" + college.image + ")",
@@ -40,8 +40,18 @@ function SchoolProfile() {
         }
     }
   }));
-  
   const classes = useStyles();
+
+  const getMentors = e => {
+    axios.get("/api/mentorinfo").then((res) => {
+        setMentorList(res.data);
+    });
+  } 
+
+  useEffect(()=>{
+      const tempList = getMentors();
+  }, [])
+
   return (
     <React.Fragment>
       <Box className={classes.hero}>
@@ -52,81 +62,36 @@ function SchoolProfile() {
       <h2>Top Questions</h2><br></br><br></br>
       <h2>Featured Mentors</h2>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card className={classes.card}>
-              <CardActionArea href="/schoolProfile">
-                  <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Mentor 1
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                          Hi! I'm Mentor 1. I'm a CS Major.
-                      </Typography>
-                  </CardContent>
-              </CardActionArea>
-              <CardActions className={classes.cardActions}>
-                  <Box className={classes.author}>
-                      <Box ml={2}>
-                          <Typography variant="subtitle2" component="p">
-                          </Typography>
-                          <Typography variant="subtitle2" color="textSecondary" component="p">
-                              
-                          </Typography>
-                      </Box>
-                  </Box>
-              </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card className={classes.card}>
-              <CardActionArea href="/schoolProfile">
-                  <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Mentor 2
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                          Hi! I'm Mentor 2. I'm an AMS Major.
-                      </Typography>
-                  </CardContent>
-              </CardActionArea>
-              <CardActions className={classes.cardActions}>
-                  <Box className={classes.author}>
-                      <Box ml={2}>
-                          <Typography variant="subtitle2" component="p">
-                          </Typography>
-                          <Typography variant="subtitle2" color="textSecondary" component="p">
-                              
-                          </Typography>
-                      </Box>
-                  </Box>
-              </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card className={classes.card}>
-              <CardActionArea href="/schoolProfile">
-                  <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Mentor 3
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                          Hi! I'm Mentor 3. I'm a BME Major.
-                      </Typography>
-                  </CardContent>
-              </CardActionArea>
-              <CardActions className={classes.cardActions}>
-                  <Box className={classes.author}>
-                      <Box ml={2}>
-                          <Typography variant="subtitle2" component="p">
-                          </Typography>
-                          <Typography variant="subtitle2" color="textSecondary" component="p">
-                              
-                          </Typography>
-                      </Box>
-                  </Box>
-              </CardActions>
-          </Card>
-        </Grid>
+        {mentorList.map(mentor => (
+          <Grid item xs={12} sm={6} md={4}>
+            <Card className={classes.card}>
+                <CardActionArea href="/schoolProfile">
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {mentor.name}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            Hi! I'm Mentor 1. I'm a CS Major.
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions className={classes.cardActions}>
+                    <Box className={classes.author}>
+                        <Box ml={2}>
+                            <Typography variant="subtitle2" component="p">
+                            </Typography>
+                            <Typography variant="subtitle2" color="textSecondary" component="p">
+                                
+                            </Typography>
+                        </Box>
+                    </Box>
+                </CardActions>
+                <Button variant="contained" color="primary">
+                  Schedule a Session
+                </Button>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
       <br></br>
       <Button variant="contained" color="primary" href="/schoolMentors">

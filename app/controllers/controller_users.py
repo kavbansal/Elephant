@@ -68,6 +68,14 @@ def get_all_users():
     output = [user.toDict() for user in listOfUsers]
     return jsonify(output), 200
 
+@users_router.route('/api/mentorinfo', methods=['GET'])
+def get_all_mentors():
+    # get list of all items using DAO and specifying the tags
+    listOfUsers = mongo_user_dao.findAllMentors()
+
+    output = [user.toDict() for user in listOfUsers]
+    return jsonify(output), 200
+
 @users_router.route('/api/userinfo/<email>', methods=['GET'])
 def get_user_by_email(email):
     # get list of all items using DAO and specifying the tags
