@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,23 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import StudentTitle from './StudentTitle';
-
-// Generate Order Data
-function createData(id, date, name, sessionType) {
-  return { id, date, name, sessionType};
-}
-
-const rows = [
-  createData(0, 'Mar 20, 2021', 'name', 'Essay Help'),
-  createData(1, 'Mar 21, 2021', 'name', 'ACT Tutoring'),
-  createData(2, 'Mar 22, 2021', 'name', 'School Overview'),
-  createData(3, 'Mar 23, 2021', 'name', 'Choosing a Major'),
-  createData(4, 'Mar 24, 2021', 'name', 'Application Help'),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -33,6 +19,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentAppointments() {
   const classes = useStyles();
+  function createData(id, date, name, sessionType) {
+    return { id, date, name, sessionType};
+  }
+  
+  const [appointments, setAppointments] = useState([]);
+  const { userID } = useContext(AuthContext);
+  let rows = [];
+  
+  const getAppointments = e => {
+    axios.get("/api/appointmentinfo/" + userID).then((res) => {
+      setAppointments(res.data);
+    });
+  } 
+  
+  useEffect(()=>{
+    const tempList = getAppointments();
+  }, [])
+  
+  //alert(appointments[0]);
+
   return (
     <React.Fragment>
       <StudentTitle>Upcoming Appointments</StudentTitle>
@@ -45,17 +51,17 @@ export default function StudentAppointments() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {appointments.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.dateTime}</TableCell>
+              <TableCell>name</TableCell>
               <TableCell>{row.sessionType}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="#">
           See more appointments
         </Link>
       </div>

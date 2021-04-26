@@ -132,6 +132,7 @@ function Schools() {
             history.push("/schoolProfile");
         });
     };
+    alert(schoolList[0]);
 
     return (
         <React.Fragment>

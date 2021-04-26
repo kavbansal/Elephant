@@ -44,7 +44,6 @@ const navLinks = [
 const Navigation = () => {
   const classes = useStyles();
   const { userID } = useContext(AuthContext);
-  
   return (
     //<div>
     <AppBar position="fixed">
