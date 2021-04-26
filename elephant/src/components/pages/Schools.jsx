@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,8 +15,9 @@ import InputBase from '@material-ui/core/InputBase';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from "axios";
+import { withStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
     appBar: {
         backgroundColor: "#0e5616"
     },
@@ -102,243 +103,254 @@ const useStyles = makeStyles((theme) => ({
             width: '20ch',
         },
     }
-}));
+});
             
-function getSchools(){
-    axios.get("/api/collegeinfo").then((res) => {
-        return res.data;
-    });
-    return null;
-}                
+               
 
 
-function Schools(){
-    const classes = useStyles();
-    const schoolList = getSchools();
+export class Schools extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          schoolList:[]
+        }
+    }
 
-    return (
-        <React.Fragment>
-            <div className="App">
-                <AppBar className={classes.appBar} position="static">
-                    <Toolbar>
-                        <Typography variant="h6" color="primary" >
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Box className={classes.hero}>
-                    <Box>Schools</Box>
+    getSchools(){
+        axios.get("/api/collegeinfo").then((res) => {
+            this.setState({ schoolList: res.data});
+        });
+    } 
+    //const classes = useStyles();
+    //const schoolList = getSchools();
+    callSchools = this.getSchools();
+    render() {
+        const { classes } = this.props;
+        //this.getSchools();
+        return (
+            <React.Fragment>
+                <div className="App">
+                    <AppBar className={classes.appBar} position="static">
+                        <Toolbar>
+                            <Typography variant="h6" color="primary" >
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <Box className={classes.hero}>
+                        <Box>Schools</Box>
 
-                </Box>
-                <Container maxWidth="lg" className={classes.blogsContainer}>
-                    <Typography variant="h4" className={classes.blogTitle}>
-                        Find Your Best Fit College
-                    </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
-                    
-
-                    <Grid container spacing={3}>
-                        {schoolList.map(school => (
-                            <Grid item xs={12} sm={6} md={4} key={school.Id}>
-                            <Card className={classes.card}>
-                                <CardActionArea a href="/schoolProfile">
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWdYt2vIBYlQ/v1/1000x-1.jpg"
-                                        title="Contemplative Reptile"
-                                    />
-
-                                    <Card>
-
-                                    </Card>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            {school.name}
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
-                                            </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        ))}
-                    </Grid>
-
-                    
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea a href="/schoolProfile">
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWdYt2vIBYlQ/v1/1000x-1.jpg"
-                                        title="Contemplative Reptile"
-                                    />
-
-                                    <Card>
-
-                                    </Card>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Johns Hopkins University
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
-                                            </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea href="/schoolProfile">
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://www.commonapp.org/static/20f424969b58e494e871e8f724c19374/columbia-university_445.png"
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Columbia University
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
-
-                                            </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea href="/schoolProfile">
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg"
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Harvard University
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
-                                            </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea href="/schoolProfile">
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://ischoolconnect.com/blog/wp-content/uploads/2018/12/31131766_205810363346714_1550189117445242880_n-1.jpg"
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            MIT
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
-
-                                            </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                    <Box my={4} className={classes.paginationContainer}>
                     </Box>
-                </Container>
-            </div>
+                    <Container maxWidth="lg" className={classes.blogsContainer}>
+                        <Typography variant="h4" className={classes.blogTitle}>
+                            Find Your Best Fit College
+                        </Typography>
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </div>
+                        
 
-        </React.Fragment>
-    );
+                        <Grid container spacing={3}>
+                            {this.state.schoolList.map(school => (
+                                <Grid item xs={12} sm={6} md={4} key={school.Id}>
+                                <Card className={classes.card}>
+                                    <CardActionArea a href="/schoolProfile">
+                                        <CardMedia
+                                            className={classes.media}
+                                            image="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWdYt2vIBYlQ/v1/1000x-1.jpg"
+                                            title="Contemplative Reptile"
+                                        />
+
+                                        <Card>
+
+                                        </Card>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {school.name}
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            ))}
+                        </Grid>
+
+                        
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardActionArea a href="/schoolProfile">
+                                        <CardMedia
+                                            className={classes.media}
+                                            image="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWdYt2vIBYlQ/v1/1000x-1.jpg"
+                                            title="Contemplative Reptile"
+                                        />
+
+                                        <Card>
+
+                                        </Card>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                Johns Hopkins University
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardActionArea href="/schoolProfile">
+                                        <CardMedia
+                                            className={classes.media}
+                                            image="https://www.commonapp.org/static/20f424969b58e494e871e8f724c19374/columbia-university_445.png"
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                Columbia University
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
+
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardActionArea href="/schoolProfile">
+                                        <CardMedia
+                                            className={classes.media}
+                                            image="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg"
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                Harvard University
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardActionArea href="/schoolProfile">
+                                        <CardMedia
+                                            className={classes.media}
+                                            image="https://ischoolconnect.com/blog/wp-content/uploads/2018/12/31131766_205810363346714_1550189117445242880_n-1.jpg"
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                MIT
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        </Grid>
+                        <Box my={4} className={classes.paginationContainer}>
+                        </Box>
+                    </Container>
+                </div>
+
+            </React.Fragment>
+        );
+    }
 }
 
-export default Schools;
+export default withStyles(styles)(Schools);

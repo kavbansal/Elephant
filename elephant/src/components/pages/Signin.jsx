@@ -56,7 +56,7 @@ export class Signin extends Component {
       email:"",
       password:""
     }
- }
+  }
 
   onChange= (e) => {
     let nam = event.target.name;
