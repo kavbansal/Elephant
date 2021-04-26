@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import Navigation from './components/layout/Navigation';
 import Schools from './components/pages/Schools';
 import Signin from './components/pages/Signin';
+import Signout from './components/pages/Signout';
 import Signup from './components/pages/Signup';
 import SchoolProfile from './components/pages/SchoolProfile';
 import About from './components/pages/About';
@@ -16,10 +17,11 @@ import QnA from './components/pages/QnA';
 import "./App.css";
 import MentorDashboard from "./components/pages/MentorDashboard";
 import StudentDashboard from "./components/pages/StudentDashboard";
+import { AuthContextProvider } from "./components/helper/AuthContext";
 
 const App = () => {
   return (
-    
+    <AuthContextProvider>
       <Router>
         <div className="App">
           <Navigation />
@@ -39,6 +41,7 @@ const App = () => {
             <Route path="/mentorSignupForm" component={MentorForm} />
             <Route path="/studentDashboard" component={StudentDashboard} />
             <Route path="/QnA" component={QnA} />
+            <Route path="/signout" component={Signout} />
             {/* Will probably replace schoolProfile and schoolMentors with /schools/id or /schools/name in future */}
             {/* Temporarily using Login component instead of Facebook Component */}
             
@@ -46,7 +49,7 @@ const App = () => {
           </div>
         </div>
       </Router>
-    
+    </AuthContextProvider>
   );
 };
 

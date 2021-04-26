@@ -20,19 +20,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import StudentFavorites from '../dashboards/StudentFavorites';
 import StudentAppointments from '../dashboards/StudentAppointments';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
 
 const drawerWidth = 240;
 

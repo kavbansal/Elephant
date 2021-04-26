@@ -50,10 +50,17 @@ const useStyles = makeStyles((theme) => ({
 } = useContext(AuthContext); */
 
 function Signin() {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();
   const history = useHistory();
+  const {
+    setName,
+    email,
+    setEmail,
+    userID,
+    setUserID,
+    setMentor,
+  } = useContext(AuthContext);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -72,7 +79,10 @@ function Signin() {
     axios.get("/api/userinfo/" + email
     ).then((res) => {
       //alert(res.data[0].password)
-      //setUserID(res._id);
+      setUserID(res.data[0].id);
+      setEmail(res.data[0].email);
+      setName(res.data[0].name);
+      setMentor(res.data[0].isMentor);
       if (res.data[0].password == password) {
         history.push("/schools");
       } 

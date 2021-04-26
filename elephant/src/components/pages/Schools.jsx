@@ -16,6 +16,8 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
 
 const styles = theme => ({
     appBar: {

@@ -37,13 +37,13 @@ const navLinks = [
   { title: `Schools`, path: `/schools` },
   /* { title: `Dashboard`, path: `/studentDashboard` }, */
   /* { title: `Mentor`, path: `/mentorDashboard` }, */
-  { title: `Login`, path: `/signin` },
+  /* { title: `Login`, path: `/signin` }, */
   { title: 'Q&A', path: '/QnA'},
 ]
 
 const Navigation = () => {
   const classes = useStyles();
-  //const { userID } = useContext(AuthContext);
+  const { userID } = useContext(AuthContext);
   
   return (
     //<div>
@@ -66,13 +66,26 @@ const Navigation = () => {
                     </ListItem>
                   </a>
               ))}
-              {/* {userID !== "null" && userID !== "undefined" ? (
+              {userID !== "null" && userID !== "undefined" ? (
                 <a href='/studentDashboard' key='Dashboard' className={classes.linkText}>
                 <ListItem button>
                   <ListItemText primary='Dashboard' />
                 </ListItem>
                 </a>
-              ) : null} */}
+              ) : null}
+              {userID !== "null" && userID !== "undefined" ? (
+                <a href='/signout' key='Logout' className={classes.linkText}>
+                  <ListItem button>
+                    <ListItemText primary='Logout' />
+                  </ListItem>
+                </a>
+                ) : (
+                <a href='/signin' key='Login' className={classes.linkText}>
+                  <ListItem button>
+                    <ListItemText primary='Login' />
+                  </ListItem>
+                </a>
+                )}
             </List>
           </Hidden>
           <Hidden mdUp>
