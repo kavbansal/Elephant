@@ -16,10 +16,11 @@ import { Button } from '@material-ui/core';
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 import axios from "axios";
+import SchedulingModal from "../SignupForms/SchedulingModal";
 
 
 function SchoolProfile() {
-  const {college, setCollege} = useContext(AuthContext);
+  const {isMentor, college, setCollege} = useContext(AuthContext);
   const [mentorList, setMentorList] = useState([]);
   const useStyles = makeStyles((theme) => ({
     hero: {
@@ -65,7 +66,7 @@ function SchoolProfile() {
         {mentorList.map(mentor => (
           <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-                <CardActionArea href="/schoolProfile">
+                <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                           {mentor.name}
@@ -86,9 +87,7 @@ function SchoolProfile() {
                         </Box>
                     </Box>
                 </CardActions>
-                <Button variant="contained" color="primary">
-                  Schedule a Session
-                </Button>
+                <SchedulingModal />
             </Card>
           </Grid>
         ))}

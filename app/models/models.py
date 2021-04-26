@@ -21,6 +21,8 @@ class DaoFactory():
             return UserDao(args)
         elif obj == 'college':
             return CollegeDao(args)
+        elif obj == 'appointment':
+            return AppointmentDao(args)
         else:
             return None
 
@@ -330,6 +332,139 @@ class CollegeDao(DatabaseObject):
         returned = self.collection.delete_one({'_id': ObjectId(Id)})
         return returned.deleted_count
 
+class AppointmentDao(DatabaseObject):
+    """
+        DAO converts college information from results given from MongoDB queries to
+        their corresponding class representation.
+    """
+
+    def __init__(self, collection):
+        """
+            Initialize DAO
+
+            Args:
+                collection: the DB to access
+        """
+        super().__init__(collection)
+
+        # Register the location attribute for documents in mongo to be used as a
+        # geospatial index for querying
+        self.collection.create_index([('location', '2dsphere' )])
+
+    def findById(self, Id):
+        """
+            Find college by Id in self.collection
+
+            Args:
+                Id: the id of the user to find
+
+            Retuns:
+                a college instance
+        """
+
+        # Get the item from our mongodb collection
+        appointmentDoc = self.collection.find_one({"_id": ObjectId(Id)})
+
+        # Serialize it into an User object
+        newAppointment = Appointment.fromDict(appointmentDoc)
+
+        return newAppointment
+
+    def findAll(self):
+        """
+            Get all appointments in self.collection.
+
+            Returns:
+                a list of Appointments
+        """
+
+        # Mongo query to get the items that have the specified tags from our
+        # mongodb collection
+        filteredAppointments = self.collection.find()
+
+        output = []
+        # Serialize documents into Item objects and return them in a list
+        for appointmentDoc in filteredAppointments:
+            output.append(Appointment.fromDict(appointmentDoc))
+        return output
+    
+    def findAllMatchingUserId(self, userId):
+        """
+            Get all appointments with matching users in self.collection.
+
+            Args:
+                userId: the userId to filter by
+
+            Returns:
+                list of Appointment instances
+        """
+
+        filteredMentorAppointments = self.collection.find({
+            'mentorId' : userId
+        })
+
+        filteredStudentAppointments = self.collection.find({
+            'studentId' : userId
+        })
+
+        output = []
+        # Serialize documents into Item objects and return them in a list
+        for userDoc in filteredMentorAppointments:
+            output.append(Appointment.fromDict(userDoc))
+        for userDoc in filteredStudentAppointments:
+            output.append(Appointment.fromDict(userDoc))
+        return output
+
+    def insert(self, appointment):
+        """
+            Add a Appointment to self.collection
+
+            Args:
+                appointment: the appointment that is being inserted
+        """
+        data = appointment.toDict() # Get item info formatted in a JSON friendly manner
+        data.pop('id') # Remove the id field
+
+        # Insert the user into our mongodb collection,
+        # get the ID it was assigned, give the user that id
+        appointment_id = self.collection.insert_one(data).inserted_id
+        new_appointment = self.collection.find_one({'_id': appointment_id})
+        appointment.Id = str(new_appointment['_id'])
+
+    def update(self, appointment):
+        """
+            Update a users information in self.collection.
+
+            Args:
+                appointment: the appointment that is being updated
+        """
+
+        Id = appointment.Id
+        data = appointment.toDict() # Get item info formatted in a JSON friendly manner
+        data.pop('id') # remove the id, shouldn't be updating it
+
+        # find the item in our mongodb collection by its id,
+        # update it with the new data
+        self.collection.find_one_and_update({'_id': ObjectId(Id)}, {
+            "$set": data
+        }, upsert=False)
+
+
+    def remove(self, Id):
+        """
+            Remove a Appointment from self.collection by its id.
+
+            Args:
+                Id: the id of the listing to remove
+
+            Returns:
+                The number of users deleted
+        """
+
+        # Delete the item frmo our mongodb collection by its id
+        returned = self.collection.delete_one({'_id': ObjectId(Id)})
+        return returned.deleted_count
+
 class AbstractUser(ABC):
     """
         An abstract class representing what a basic user should be able to do.
@@ -583,7 +718,7 @@ class College(ABC):
         return str(self)
 
 class Appointment(ABC):
-    def __init__(self, Id=None, student=None, mentor=None, dateTime = None):
+    def __init__(self, Id=None, studentId=None, mentorId=None, dateTime = None, sessionType=None):
         """
             Initialize self.
 
@@ -593,25 +728,28 @@ class Appointment(ABC):
                 gpa: the avg gpa of self
         """
         self.Id = Id
-        self.student = student
-        self.mentor = mentor
+        self.studentId = studentId
+        self.mentor = mentorId
         self.dateTime = dateTime
+        self.sessionType = sessionType
 
     @classmethod
     def fromDict(cls, doc):
         appointment = cls()
         appointment.Id = str(doc['_id'])
-        appointment.student = doc['student']
-        appointment.mentor = doc['mentor']
+        appointment.studentId = doc['studentId']
+        appointment.mentorId = doc['mentorId']
         appointment.dateTime = doc['dateTime']
+        appointment.sessionType = doc['sessionType']
         return appointment
 
     def toDict(self):
         output = {
             'id'            : self.Id,
-            'student'       : self.student,
-            'mentor'        : self.mentor,
+            'studentId'       : self.studentId,
+            'mentorId'        : self.mentorId,
             'dateTime'      : self.dateTime,
+            'sessionType'      : self.sessionType,
         }
         return output
 
@@ -624,20 +762,20 @@ class Appointment(ABC):
         self.__Id = Id
 
     @property
-    def student(self):
-        return self.__student
+    def studentId(self):
+        return self.__studentId
 
-    @student.setter
-    def student(self, student):
-        self.__student = student
+    @studentId.setter
+    def studentId(self, studentId):
+        self.__studentId = studentId
 
     @property
-    def mentor(self):
-        return self.__mentor
+    def mentorId(self):
+        return self.__mentorId
 
-    @mentor.setter
-    def mentor(self, mentor):
-        self.__mentor = mentor
+    @mentorId.setter
+    def mentor(self, mentorId):
+        self.__mentorId = mentorId
 
     @property
     def dateTime(self):
@@ -646,6 +784,14 @@ class Appointment(ABC):
     @dateTime.setter
     def dateTime(self, dateTime):
         self.__dateTime = dateTime
+
+    @property
+    def sessionType(self):
+        return self.__sessionType
+
+    @sessionType.setter
+    def sessionType(self, sessionType):
+        self.__sessionType = sessionType
 
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
@@ -656,10 +802,12 @@ class Appointment(ABC):
             return False
         if self.dateTime != otherUser.dateTime:
             return False
+        if self.sessionType != otherUser.sessionType:
+            return False
         return True
 
     def __str__(self):
-        return self.student + ': ' + self.mentor + ': ' + self.dateTime
+        return self.studentId + ': ' + self.mentorId + ': ' + self.dateTime
 
     def __repr__(self):
         return str(self)
