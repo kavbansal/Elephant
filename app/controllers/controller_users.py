@@ -82,8 +82,9 @@ def get_user_by_email(email):
 def add_college():
     name = request.form['name']
     gpa = request.form['gpa']
+    image = request.form['image']
     
-    college = College(name=name, gpa=gpa)
+    college = College(name=name, gpa=gpa, image=image)
     mongo_college_dao.insert(college)
     return jsonify(college.toDict()), 200
     

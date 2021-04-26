@@ -480,7 +480,7 @@ class Mentor(AbstractUser):
 
 class College(ABC):
 
-    def __init__(self, Id=None, name=None, gpa=None):
+    def __init__(self, Id=None, name=None, gpa=None, image=None):
         """
             Initialize self.
 
@@ -488,10 +488,12 @@ class College(ABC):
                 Id: the id of self
                 name: the name of self
                 gpa: the avg gpa of self
+                image: picture of the college
         """
         self.Id = Id
         self.name = name                # Should be a string
         self.gpa = gpa              # Should be a float/double
+        self.image = image
 
     @classmethod
     def fromDict(cls, doc):
@@ -499,6 +501,7 @@ class College(ABC):
         college.Id = str(doc['_id'])
         college.name = doc['name']
         college.gpa = doc['gpa']
+        college.image = doc['image']
         return college
 
     # when convert to dict, set isAdmin to false
@@ -507,6 +510,7 @@ class College(ABC):
             'id'            : self.Id,
             'name'          : self.name,
             'gpa'           : self.gpa,
+            'image'           : self.image,
         }
         return output
 
@@ -534,12 +538,22 @@ class College(ABC):
     def gpa(self, gpa):
         self.__gpa = gpa
 
+    @property
+    def image(self):
+        return self.__image
+
+    @image.setter
+    def image(self, image):
+        self.__image = image
+
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
             return False
         if self.name != otherUser.name:
             return False
         if self.gpa != otherUser.gpa:
+            return False
+        if self.image != otherUser.image:
             return False
         return True
 
