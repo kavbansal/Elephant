@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: "#0e5616"
     },
@@ -105,112 +105,109 @@ const styles = theme => ({
             width: '20ch',
         },
     }
-});
+}));
             
                
 
 
-export class Schools extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          schoolList:[]
-        }
-    }
-
-    getSchools(){
+function Schools() {
+    const [schoolList, setSchoolList] = useState([]);
+    const classes = useStyles();
+    const getSchools = e => {
         axios.get("/api/collegeinfo").then((res) => {
-            this.setState({ schoolList: res.data});
+            setSchoolList(res.data);
         });
     } 
+
     //const classes = useStyles();
-    //const schoolList = getSchools();
-    callSchools = this.getSchools();
-    render() {
-        const { classes } = this.props;
-        //this.getSchools();
-        return (
-            <React.Fragment>
-                <div className="App">
-                    <AppBar className={classes.appBar} position="static">
-                        <Toolbar>
-                            <Typography variant="h6" color="primary" >
-                            </Typography>
-                        </Toolbar>
-                    </AppBar>
-                    <Box className={classes.hero}>
-                        <Box>Schools</Box>
-
-                    </Box>
-                    <Container maxWidth="lg" className={classes.blogsContainer}>
-                        <Typography variant="h4" className={classes.blogTitle}>
-                            Find Your Best Fit College
+    useEffect(()=>{
+        const tempList = getSchools();
+    }, [])
+    //
+    //callSchools = this.getSchools();
+    //this.getSchools();
+    return (
+        <React.Fragment>
+            <div className="App">
+                <AppBar className={classes.appBar} position="static">
+                    <Toolbar>
+                        <Typography variant="h6" color="primary" >
                         </Typography>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
+                    </Toolbar>
+                </AppBar>
+                <Box className={classes.hero}>
+                    <Box>Schools</Box>
+
+                </Box>
+                <Container maxWidth="lg" className={classes.blogsContainer}>
+                    <Typography variant="h4" className={classes.blogTitle}>
+                        Find Your Best Fit College
+                    </Typography>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
                         </div>
-                        
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                    
 
-                        <Grid container spacing={3}>
-                            {this.state.schoolList.map(school => (
-                                <Grid item xs={12} sm={6} md={4} key={school.Id}>
-                                <Card className={classes.card}>
-                                    <CardActionArea a href="/schoolProfile">
-                                        <CardMedia
-                                            className={classes.media}
-                                            image={school.image}
-                                            title="Contemplative Reptile"
-                                        />
+                    <Grid container spacing={3}>
+                        {schoolList.map(school => (
+                            <Grid item xs={12} sm={6} md={4} key={school.Id}>
+                            <Card className={classes.card}>
+                                <CardActionArea a href="/schoolProfile">
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={school.image}
+                                        title="Contemplative Reptile"
+                                    />
 
-                                        <Card>
+                                    <Card>
 
-                                        </Card>
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {school.name}
+                                    </Card>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            {school.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Brief description
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions className={classes.cardActions}>
+                                    <Box className={classes.author}>
+                                        <Box ml={2}>
+                                            <Typography variant="subtitle2" component="p">
                                             </Typography>
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                Brief description
+                                            <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                
                                             </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                    <CardActions className={classes.cardActions}>
-                                        <Box className={classes.author}>
-                                            <Box ml={2}>
-                                                <Typography variant="subtitle2" component="p">
-                                                </Typography>
-                                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                    
-                                                </Typography>
-                                            </Box>
                                         </Box>
-                                        <Box>
-                                            <BookmarkBorderIcon />
-                                        </Box>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                            ))}
+                                    </Box>
+                                    <Box>
+                                        <BookmarkBorderIcon />
+                                    </Box>
+                                </CardActions>
+                            </Card>
                         </Grid>
+                        ))}
+                    </Grid>
 
-                        <Box my={4} className={classes.paginationContainer}>
-                        </Box>
-                    </Container>
-                </div>
+                    <Box my={4} className={classes.paginationContainer}>
+                    </Box>
+                </Container>
+            </div>
 
-            </React.Fragment>
-        );
-    }
+        </React.Fragment>
+    );
 }
 
-export default withStyles(styles)(Schools);
+
+export default Schools;
