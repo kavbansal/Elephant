@@ -13,6 +13,7 @@ import StudentForm from './components/pages/StudentForm';
 import MentorForm from './components/pages/MentorForm';
 import SchoolMentors from './components/pages/SchoolMentors';
 import QnA from './components/pages/QnA';
+import Messaging from './components/pages/Messaging';
 
 import "./App.css";
 import MentorDashboard from "./components/pages/MentorDashboard";
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/studentDashboard" component={StudentDashboard} />
             <Route path="/QnA" component={QnA} />
             <Route path="/signout" component={Signout} />
+            <Route path="/messaging" component={Messaging} />
             {/* Will probably replace schoolProfile and schoolMentors with /schools/id or /schools/name in future */}
             {/* Temporarily using Login component instead of Facebook Component */}
             

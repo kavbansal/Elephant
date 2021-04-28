@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { usePromiseTracker } from "react-promise-tracker";
 import Spinner from 'react-bootstrap/Spinner'
+import * as serviceWorker from './serviceWorker';
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
@@ -33,3 +34,5 @@ ReactDOM.render(
   </div>,
   document.getElementById('root')
 );
+
+serviceWorker.unregister();
