@@ -132,7 +132,6 @@ function Schools() {
             history.push("/schoolProfile");
         });
     };
-    alert(schoolList[0]);
 
     return (
         <React.Fragment>
@@ -151,7 +150,7 @@ function Schools() {
                     <Typography variant="h4" className={classes.blogTitle}>
                         Find Your Best Fit College
                     </Typography>
-                    <div className={classes.search}>
+                    {/* <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
@@ -163,7 +162,7 @@ function Schools() {
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                    </div>
+                    </div> */}
                     
 
                     <Grid container spacing={3}>

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import io from "socket.io-client";
+//import io from "socket.io-client";
 let endpoint = "http://localhost:5000";
-let socket = io.connect(endpoint);
+//let socket = io.connect(endpoint);
 
 const MessageModule = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
-  socket.on("message", msg => {
-    setMessages([...messages, msg])});
+  /* socket.on("message", msg => {
+    setMessages([...messages, msg])}); */
 
   const onChange = (event) => {
     setMessage(event.target.value);
   };
 
   const onClick = () => {
-    socket.emit("message", message);
+    //socket.emit("message", message);
     setMessage("");
   };
 
@@ -35,4 +35,4 @@ const MessageModule = () => {
   );
 };
 
-export default App;
+export default MessageModule;

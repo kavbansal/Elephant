@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
@@ -49,10 +49,11 @@ export default function SchedulingModal() {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
-  const [value, setValue] = React.useState('');
+  const [sessionType, setSessionType] = React.useState('');
+  const [date, setDate] = useState('');
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setSessionType(event.target.value);
   };
 
   const handleOpen = () => {
@@ -63,12 +64,37 @@ export default function SchedulingModal() {
     setOpen(false);
   };
 
+  const onChangeDate = (e) => {
+    setDate(e.target.value);
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    //var data = new FormData();
+    //data.append("email", this.state.email);
+    //data.append("password", this.state.password);
+
+    /* axios.post("/api/userinfo/" + email
+    ).then((res) => {
+      //alert(res.data[0].password)
+      setUserID(res.data[0].id);
+      setEmail(res.data[0].email);
+      setName(res.data[0].name);
+      setMentor(res.data[0].isMentor);
+      if (res.data[0].password == password) {
+        history.push("/schools");
+      } 
+    }); */
+    
+  }
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Schedule a Session</h2>
-      <form className={classes.container} noValidate>
+      <form onSubmit={onSubmit} className={classes.container} noValidate>
         <TextField
             id="datetime-local"
+            onChange={onChangeDate}
             label="Next appointment"
             type="datetime-local"
             className={classes.textField}
@@ -77,7 +103,7 @@ export default function SchedulingModal() {
             }}
         />
         <FormLabel component="legend">Session Type</FormLabel>
-        <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+        <RadioGroup aria-label="gender" name="gender1" value={sessionType} onChange={handleChange}>
             <FormControlLabel value="essay" control={<Radio />} label="Essay Help" />
             <FormControlLabel value="test" control={<Radio />} label="Test Prep" />
             <FormControlLabel value="overview" control={<Radio />} label="School Overview" />
