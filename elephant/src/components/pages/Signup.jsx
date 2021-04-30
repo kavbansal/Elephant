@@ -41,6 +41,10 @@ export default function SignUp() {
     setMentor(false);
   };
 
+  const mentorClick = (e) => {
+    setMentor(true);
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -63,7 +67,7 @@ export default function SignUp() {
             >
                 Sign Up as a Student
             </Button>
-            <Button
+            <Button onClick={mentorClick}
                 type="submit"
                 fullWidth
                 variant="contained"

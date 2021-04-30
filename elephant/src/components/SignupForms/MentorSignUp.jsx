@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,9 +11,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
+import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,11 +47,73 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MentorSignUp() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [schoolList, setSchoolList] = useState([]);
+  const [schoolID, setSchoolID] = React.useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    setUserID,
+    isMentor,
+    setMentor,
+  } = useContext(AuthContext);
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  }
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  }
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  }
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSchoolID(event.target.value);
   };
+  const getSchools = e => {
+    axios.get("/api/collegeinfo").then((res) => {
+            setSchoolList(res.data);
+        });
+  } 
+
+  useEffect(()=>{
+    getSchools();
+  }, [])
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    var data = new FormData();
+    data.append("name", name);
+    data.append("email", email);
+    data.append("password", password);
+    data.append("isMentor", isMentor);
+    data.append("school", schoolID);
+
+    if (name !== "null" && name !== "undefined" && email !== "null" && email !== "undefined" 
+    & email !== "null" && email !== "undefined" & schoolID !== "null" && schoolID !== "undefined") {
+        ///alert(password);
+        axios({
+            method: 'post',
+            url: '/api/userinfo',
+            data: data,
+            headers: {'Content-Type': 'multipart/form-data' }
+        }).then((res) => {
+            setUserID(res.data[0].id);
+            setEmail(res.data[0].email);
+            setName(res.data[0].name);
+            setMentor(res.data[0].isMentor);
+            history.push("/schools");
+        });
+    } else {
+        alert("Please fill out all fields.");
+    }
+    
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,33 +125,23 @@ export default function MentorSignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={onSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
+                onChange={onChangeName}
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={onChangeEmail}
                 variant="outlined"
                 required
                 fullWidth
@@ -100,6 +153,7 @@ export default function MentorSignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={onChangePassword}
                 variant="outlined"
                 required
                 fullWidth
@@ -112,20 +166,17 @@ export default function MentorSignUp() {
             </Grid>
             <Grid item xs={12}>
                 <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-outlined-label">School</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={age}
+                    value={schoolID}
                     onChange={handleChange}
-                    label="Age"
+                    label="School"
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {schoolList.map(school => (
+                        <MenuItem value={school.id}>{school.name}</MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
             </Grid>

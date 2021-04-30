@@ -604,8 +604,9 @@ class Student(AbstractUser):
 
 
 class Mentor(AbstractUser):
-    def __init__(self, Id=None, name=None, email=None, password=None, isMentor=None):
+    def __init__(self, Id=None, name=None, email=None, password=None, isMentor=None, school=None):
         super().__init__(Id, name, email, password, isMentor)
+        self.school = school
 
     @classmethod
     def fromDict(cls, doc):
@@ -615,6 +616,7 @@ class Mentor(AbstractUser):
         mentor.email = doc['email']
         mentor.password = doc['password']
         mentor.isMentor = doc['isMentor']
+        mentor.school = doc['school']
         # mentor.schoolId = str(doc['_schoolId'])
 
         return mentor
@@ -627,10 +629,19 @@ class Mentor(AbstractUser):
             'email'         : self.email,
             'password'      : self.password,
             # 'schoolId'      : self.schoolId,
-            'isMentor'       : True
+            'isMentor'       : True,
+            'school'        : self.school
 
         }
         return output
+    
+    @property
+    def school(self):
+        return self.__school
+
+    @school.setter
+    def school(self, school):
+        self.__school = school
 
 class College(ABC):
 

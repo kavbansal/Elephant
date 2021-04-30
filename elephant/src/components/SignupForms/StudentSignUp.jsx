@@ -67,19 +67,25 @@ export default function StudentSignUp() {
     data.append("email", email);
     data.append("password", password);
     data.append("isMentor", isMentor);
-
-    axios({
-        method: 'post',
-        url: '/api/userinfo',
-        data: data,
-        headers: {'Content-Type': 'multipart/form-data' }
-      }).then((res) => {
-        setUserID(res.data[0].id);
-        setEmail(res.data[0].email);
-        setName(res.data[0].name);
-        setMentor(res.data[0].isMentor);
-        history.push("/schools");
-      });
+    data.append("school", null);
+    //alert(isMentor);
+    if (name !== "null" && name !== "undefined" && email !== "null" && email !== "undefined" 
+    & email !== "null" && email !== "undefined" ) {
+        axios({
+            method: 'post',
+            url: '/api/userinfo',
+            data: data,
+            headers: {'Content-Type': 'multipart/form-data' }
+          }).then((res) => {
+            setUserID(res.data[0].id);
+            setEmail(res.data[0].email);
+            setName(res.data[0].name);
+            history.push("/schools");
+          });
+    } else {
+        alert("Please fill out all fields.");
+    }
+    
     
   }
 

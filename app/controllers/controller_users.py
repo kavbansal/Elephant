@@ -22,6 +22,7 @@ def add_user():
     email = request.form['email']
     password = request.form['password']
     isMentor = request.form['isMentor']
+    school = school = request.form['school']
     
     # Find a matching user
     matchingUser = mongo_user_dao.findAllMatchingEmail(email)
@@ -29,8 +30,12 @@ def add_user():
     # If a user already exists upon login, then don't create a new user
     if matchingUser:
         return jsonify(matchingUser[0].toDict()), 200
-    
-    user = Student(name=name, email=email, password=password, isMentor=isMentor)
+
+    if isMentor == "true":
+        user = Mentor(name=name, email=email, password=password, isMentor=isMentor, school=school)
+    else:
+        print("test")
+        user = Student(name=name, email=email, password=password, isMentor=isMentor)
     mongo_user_dao.insert(user)
 
     listOfUsers = mongo_user_dao.findAllMatchingEmail(email)
