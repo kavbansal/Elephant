@@ -32,7 +32,11 @@ def add_user():
     
     user = Student(name=name, email=email, password=password, isMentor=isMentor)
     mongo_user_dao.insert(user)
-    return jsonify(user.toDict()), 200
+
+    listOfUsers = mongo_user_dao.findAllMatchingEmail(email)
+    output = [user.toDict() for user in listOfUsers]
+
+    return jsonify(output), 200
         
 
 @users_router.route('/api/userinfo', methods=['PUT'])

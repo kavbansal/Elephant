@@ -9,14 +9,13 @@ import Signout from './components/pages/Signout';
 import Signup from './components/pages/Signup';
 import SchoolProfile from './components/pages/SchoolProfile';
 import About from './components/pages/About';
-import StudentForm from './components/pages/StudentForm';
-import MentorForm from './components/pages/MentorForm';
+import StudentSignUp from './components/SignupForms/StudentSignUp';
+import MentorSignUp from './components/SignupForms/MentorSignUp';
 import SchoolMentors from './components/pages/SchoolMentors';
 import QnA from './components/pages/QnA';
 import Messaging from './components/pages/Messaging';
 
 import "./App.css";
-import MentorDashboard from "./components/pages/MentorDashboard";
 import StudentDashboard from "./components/pages/StudentDashboard";
 import { AuthContextProvider } from "./components/helper/AuthContext";
 
@@ -36,10 +35,9 @@ const App = () => {
             <Route path="/signin" component={Signin} />
             <Route path="/schoolProfile" component={SchoolProfile} />
             <Route path="/schoolMentors" component={SchoolMentors} />
-            <Route path="/mentorDashboard" component={MentorDashboard} />
             <Route path="/signup" component={Signup} />
-            <Route path="/studentSignupForm" component={StudentForm} />
-            <Route path="/mentorSignupForm" component={MentorForm} />
+            <Route path="/studentSignupForm" component={StudentSignUp} />
+            <Route path="/mentorSignupForm" component={MentorSignUp} />
             <Route path="/studentDashboard" component={StudentDashboard} />
             <Route path="/QnA" component={QnA} />
             <Route path="/signout" component={Signout} />

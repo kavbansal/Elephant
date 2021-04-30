@@ -1,10 +1,8 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -15,8 +13,6 @@ import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
-
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,24 +27,30 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-function Signin() {
-  const [password, setPassword] = useState('');
+export default function StudentSignUp() {
   const classes = useStyles();
+  const [password, setPassword] = useState('');
   const history = useHistory();
   const {
+    name,
     setName,
     email,
     setEmail,
     setUserID,
+    isMentor,
     setMentor,
   } = useContext(AuthContext);
+
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  }
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -60,21 +62,24 @@ function Signin() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //var data = new FormData();
-    //data.append("email", this.state.email);
-    //data.append("password", this.state.password);
+    var data = new FormData();
+    data.append("name", name);
+    data.append("email", email);
+    data.append("password", password);
+    data.append("isMentor", isMentor);
 
-    axios.get("/api/userinfo/" + email
-    ).then((res) => {
-      //alert(res.data[0].password)
-      setUserID(res.data[0].id);
-      setEmail(res.data[0].email);
-      setName(res.data[0].name);
-      setMentor(res.data[0].isMentor);
-      if (res.data[0].password === password) {
+    axios({
+        method: 'post',
+        url: '/api/userinfo',
+        data: data,
+        headers: {'Content-Type': 'multipart/form-data' }
+      }).then((res) => {
+        setUserID(res.data[0].id);
+        setEmail(res.data[0].email);
+        setName(res.data[0].name);
+        setMentor(res.data[0].isMentor);
         history.push("/schools");
-      } 
-    });
+      });
     
   }
 
@@ -86,58 +91,61 @@ function Signin() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
         <form onSubmit={onSubmit} className={classes.form} noValidate>
-          <TextField
-            //value={this.state.email}
-            onChange={onChangeEmail}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            //value={this.state.password}
-            onChange={onChangePassword}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                onChange={onChangeName}
+                variant="outlined"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={onChangeEmail}
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={onChangePassword}
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            //href='/schools'
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/signin" variant="body2">
+                Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
@@ -146,5 +154,3 @@ function Signin() {
     </Container>
   );
 }
-
-export default Signin;

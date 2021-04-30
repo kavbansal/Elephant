@@ -13,7 +13,6 @@ import {
   Hidden
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { Home } from "@material-ui/icons";
 import SideDrawer from "./SideDrawer";
 
 const useStyles = makeStyles({
@@ -34,16 +33,17 @@ const useStyles = makeStyles({
 
 const navLinks = [
   { title: `About`, path: `/about` },
-  { title: `Schools`, path: `/schools` },
+  /* { title: `Schools`, path: `/schools` }, */
   /* { title: `Dashboard`, path: `/studentDashboard` }, */
   /* { title: `Mentor`, path: `/mentorDashboard` }, */
   /* { title: `Login`, path: `/signin` }, */
-  { title: 'Q&A', path: '/QnA'},
+  /* { title: 'Q&A', path: '/QnA'}, */
 ]
 
 const Navigation = () => {
   const classes = useStyles();
   const { userID } = useContext(AuthContext);
+  //alert(userID);
   return (
     //<div>
     <AppBar position="fixed">
@@ -65,6 +65,20 @@ const Navigation = () => {
                     </ListItem>
                   </a>
               ))}
+              {userID !== "null" && userID !== "undefined" ? (
+                <a href='/schools' key='Schools' className={classes.linkText}>
+                <ListItem button>
+                  <ListItemText primary='Schools' />
+                </ListItem>
+                </a>
+              ) : null}
+              {userID !== "null" && userID !== "undefined" ? (
+                <a href='/QnA' key='Q&A' className={classes.linkText}>
+                <ListItem button>
+                  <ListItemText primary='Q&A' />
+                </ListItem>
+                </a>
+              ) : null}
               {userID !== "null" && userID !== "undefined" ? (
                 <a href='/studentDashboard' key='Dashboard' className={classes.linkText}>
                 <ListItem button>

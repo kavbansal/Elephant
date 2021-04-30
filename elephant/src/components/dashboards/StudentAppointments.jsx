@@ -19,13 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentAppointments() {
   const classes = useStyles();
-  function createData(id, date, name, sessionType) {
+  /* function createData(id, date, name, sessionType) {
     return { id, date, name, sessionType};
-  }
+  } */
   
   const [appointments, setAppointments] = useState([]);
-  const { userID } = useContext(AuthContext);
-  let rows = [];
+  const { userID, college } = useContext(AuthContext);
   
   const getAppointments = e => {
     axios.get("/api/appointmentinfo/" + userID).then((res) => {
@@ -34,10 +33,8 @@ export default function StudentAppointments() {
   } 
   
   useEffect(()=>{
-    const tempList = getAppointments();
+    getAppointments();
   }, [])
-  
-  //alert(appointments[0]);
 
   return (
     <React.Fragment>

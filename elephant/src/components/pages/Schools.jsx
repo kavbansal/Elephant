@@ -11,11 +11,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import InputBase from '@material-ui/core/InputBase';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import SearchIcon from '@material-ui/icons/Search';
 import axios from "axios";
-import { withStyles } from "@material-ui/core/styles";
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 import {useHistory} from 'react-router-dom';
@@ -113,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Schools() {
     const [schoolList, setSchoolList] = useState([]);
-    const {college, setCollege} = useContext(AuthContext);
+    const {setCollege} = useContext(AuthContext);
     const classes = useStyles();
     const history = useHistory();
     const getSchools = e => {
@@ -123,7 +120,7 @@ function Schools() {
     } 
     
     useEffect(()=>{
-        const tempList = getSchools();
+        getSchools();
     }, [])
 
     const handleClick = (value) => {
@@ -131,6 +128,7 @@ function Schools() {
             setCollege(res.data);
             history.push("/schoolProfile");
         });
+        
     };
 
     return (
@@ -167,43 +165,43 @@ function Schools() {
 
                     <Grid container spacing={3}>
                         {schoolList.map(school => (
-                            <Grid item xs={12} sm={6} md={4} key={school.Id}>
-                            <Card className={classes.card}>
-                                <CardActionArea a onClick={() => handleClick(school.id)}>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={school.image}
-                                        title="Contemplative Reptile"
-                                    />
+                            <Grid item xs={12} sm={6} md={4} key={school.id}>
+                                <Card className={classes.card} onClick={() => handleClick(school.id)}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={school.image}
+                                            title="Contemplative Reptile"
+                                        />
 
-                                    <Card>
+                                        <Card>
 
-                                    </Card>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            {school.name}
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Brief description
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions className={classes.cardActions}>
-                                    <Box className={classes.author}>
-                                        <Box ml={2}>
-                                            <Typography variant="subtitle2" component="p">
+                                        </Card>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {school.name}
                                             </Typography>
-                                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                                
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Brief description
                                             </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions className={classes.cardActions}>
+                                        <Box className={classes.author}>
+                                            <Box ml={2}>
+                                                <Typography variant="subtitle2" component="p">
+                                                </Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" component="p">
+                                                    
+                                                </Typography>
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                    <Box>
-                                        <BookmarkBorderIcon />
-                                    </Box>
-                                </CardActions>
-                            </Card>
-                        </Grid>
+                                        <Box>
+                                            <BookmarkBorderIcon />
+                                        </Box>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
                         ))}
                     </Grid>
 
