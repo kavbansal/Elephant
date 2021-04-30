@@ -45,7 +45,12 @@ function SchoolProfile() {
 
   const getMentors = e => {
     axios.get("/api/mentorinfo").then((res) => {
-        setMentorList(res.data);
+        let topMentors = []
+        let i = 0;
+        for (i = 0; i < 3; i++) {
+          topMentors.push(res.data[i]);
+        }
+        setMentorList(topMentors);
     });
   } 
 
