@@ -23,6 +23,7 @@ import StudentAppointments from '../dashboards/StudentAppointments';
 import { useContext } from "react";
 import { AuthContext } from "../helper/AuthContext";
 import MessageModule from "../messaging/MessageModule";
+import ChatApp from "./Messaging";
 
 const drawerWidth = 240;
 
@@ -151,7 +152,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <MessageModule />
+                <ChatApp />
               </Paper>
             </Grid>
           </Grid>

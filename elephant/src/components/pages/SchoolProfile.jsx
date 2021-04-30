@@ -58,8 +58,22 @@ function SchoolProfile() {
       <Box className={classes.hero}>
         <Box>{college.name}</Box>
       </Box>
-      {/* <h3>Statistics (GPA, SAT, admission rate)</h3>
-      <h3>Deadlines</h3><br></br> */}
+
+      <Card className={classes.card}>
+          <CardActionArea>
+              <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    By the Numbers
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                  Average GPA: {college.gpa}
+                  </Typography>
+              </CardContent>
+          </CardActionArea>
+      </Card>
+
+      {/*<h3>Deadlines</h3><br></br> */}
+      <br></br>
       <h2>Top Questions</h2><br></br><br></br>
       <h2>Featured Mentors</h2>
       <Grid container spacing={3}>
@@ -72,7 +86,7 @@ function SchoolProfile() {
                           {mentor.name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            Hi! I'm Mentor 1. I'm a CS Major.
+                            Hi! I'm {mentor.name}. I'm a CS Major and I'd love to help! Please schedule a consultation and e-mail me at {mentor.email}.
                         </Typography>
                     </CardContent>
                 </CardActionArea>

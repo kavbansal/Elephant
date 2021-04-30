@@ -160,7 +160,8 @@ class ChatApp extends Component {
   render() {
     return (
     <div>
-      <h3>In-App Messaging Coming Soon!</h3>
+      <h2>Messaging</h2>
+      <h4>In-App Messaging Coming Soon!</h4>
       <div className="chat_window">
         <MessagesContainer messages={this.state.messages}></MessagesContainer>
         <div className="bottom_wrapper clearfix">

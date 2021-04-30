@@ -15,8 +15,8 @@
         font-family:arial,sans-serif;
       }
       .chat-container {
-        width: 600px;
-        margin-right: 20px;
+        width: 100px;
+        margin-right: 0px;
         float:right;
         overflow:hidden;
       }
@@ -84,7 +84,7 @@
         background: #e5e5e5;
         margin: 0;
         padding: 0 0 50px 0;
-        height: 280px;
+        height: 100px;
         overflow-y: auto;
       }
       .chat-box li {
