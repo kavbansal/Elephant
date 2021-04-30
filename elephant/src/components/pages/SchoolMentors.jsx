@@ -28,7 +28,7 @@ export default class SchoolMentors extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 1
@@ -53,7 +53,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 2
@@ -78,7 +78,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 3
@@ -108,7 +108,7 @@ export default class SchoolMentors extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 4
@@ -133,7 +133,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 5
@@ -158,7 +158,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 6
@@ -188,7 +188,7 @@ export default class SchoolMentors extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 7
@@ -213,7 +213,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 8
@@ -238,7 +238,7 @@ export default class SchoolMentors extends Component {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
-                  <CardActionArea href="/schoolProfile">
+                  <CardActionArea>
                       <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
                             Mentor 9
