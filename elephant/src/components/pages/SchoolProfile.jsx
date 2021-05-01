@@ -83,7 +83,7 @@ function SchoolProfile() {
       <Grid container spacing={3}>
         {mentorList.map(mentor => (
           <Grid item xs={12} sm={6} md={4} key={mentor.id}>
-            <Card className={classes.card}>
+            <Card className={classes.card} onClick={() => handleClick(mentor.id)} >
                 <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -105,7 +105,7 @@ function SchoolProfile() {
                         </Box>
                     </Box>
                 </CardActions>
-                <SchedulingModal onClick={() => handleClick(mentor.id)} />
+                <SchedulingModal/>
             </Card>
           </Grid>
         ))}
