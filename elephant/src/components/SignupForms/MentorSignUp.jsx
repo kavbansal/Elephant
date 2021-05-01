@@ -76,7 +76,7 @@ export default function MentorSignUp() {
     setSchoolID(event.target.value);
   };
   const getSchools = e => {
-    axios.get("/api/collegeinfo").then((res) => {
+    axios.get("https://elephant-csie.herokuapp.com/api/collegeinfo").then((res) => {
             setSchoolList(res.data);
         });
   } 
@@ -99,7 +99,7 @@ export default function MentorSignUp() {
         ///alert(password);
         axios({
             method: 'post',
-            url: '/api/userinfo',
+            url: 'https://elephant-csie.herokuapp.com/api/userinfo',
             data: data,
             headers: {'Content-Type': 'multipart/form-data' }
         }).then((res) => {

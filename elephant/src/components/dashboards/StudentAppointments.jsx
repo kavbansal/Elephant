@@ -27,7 +27,7 @@ export default function StudentAppointments() {
   const { userID, college } = useContext(AuthContext);
   
   const getAppointments = e => {
-    axios.get("/api/appointmentinfo/" + userID).then((res) => {
+    axios.get("https://elephant-csie.herokuapp.com/api/appointmentinfo/" + userID).then((res) => {
       setAppointments(res.data);
     });
   } 

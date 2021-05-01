@@ -83,7 +83,7 @@ export default function SchedulingModal() {
         ///alert(password);
         axios({
             method: 'post',
-            url: '/api/appointmentinfo',
+            url: 'https://elephant-csie.herokuapp.com/api/appointmentinfo',
             data: data,
             headers: {'Content-Type': 'multipart/form-data' }
         }).then((res) => {
