@@ -15,7 +15,7 @@ import SchedulingModal from "../SignupForms/SchedulingModal";
 
 
 function SchoolProfile() {
-  const {college} = useContext(AuthContext);
+  const {college, setMentID} = useContext(AuthContext);
   const [mentorList, setMentorList] = useState([]);
   const useStyles = makeStyles((theme) => ({
     hero: {
@@ -52,6 +52,10 @@ function SchoolProfile() {
   useEffect(()=>{
       getMentors();
   }, [])
+
+  const handleClick = (value) => {
+      setMentID(value);
+  };
 
   return (
     <React.Fragment>
@@ -101,7 +105,7 @@ function SchoolProfile() {
                         </Box>
                     </Box>
                 </CardActions>
-                <SchedulingModal />
+                <SchedulingModal onClick={() => handleClick(mentor.id)} />
             </Card>
           </Grid>
         ))}

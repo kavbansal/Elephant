@@ -5,8 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import { useContext } from "react";
+import { AuthContext } from "../helper/AuthContext";
+import axios from "axios";
+import Button from '@material-ui/core/Button';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -48,9 +51,9 @@ export default function SchedulingModal() {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-
   const [sessionType, setSessionType] = React.useState('');
-  const [date, setDate] = useState('');
+  const [dateTime, setDateTime] = useState('');
+  const { userID, mentID } = useContext(AuthContext);
 
   const handleChange = (event) => {
     setSessionType(event.target.value);
@@ -64,27 +67,31 @@ export default function SchedulingModal() {
     setOpen(false);
   };
 
-  const onChangeDate = (e) => {
-    setDate(e.target.value);
+  const onChangeDateTime = (e) => {
+    setDateTime(e.target.value);
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //var data = new FormData();
-    //data.append("email", this.state.email);
-    //data.append("password", this.state.password);
+    var data = new FormData();
+    data.append("studentId", userID);
+    data.append("mentorId", mentID);
+    data.append("sessionType", sessionType);
+    data.append("dateTime", dateTime);
 
-    /* axios.post("/api/userinfo/" + email
-    ).then((res) => {
-      //alert(res.data[0].password)
-      setUserID(res.data[0].id);
-      setEmail(res.data[0].email);
-      setName(res.data[0].name);
-      setMentor(res.data[0].isMentor);
-      if (res.data[0].password == password) {
-        history.push("/schools");
-      } 
-    }); */
+    if (dateTime !== "null" && dateTime !== "undefined" && sessionType !== "null" && sessionType !== "undefined") {
+        ///alert(password);
+        axios({
+            method: 'post',
+            url: '/api/appointmentinfo',
+            data: data,
+            headers: {'Content-Type': 'multipart/form-data' }
+        }).then((res) => {
+          setOpen(false);
+        });
+    } else {
+        alert("Please fill out all fields.");
+    }
     
   }
 
@@ -94,7 +101,7 @@ export default function SchedulingModal() {
       <form onSubmit={onSubmit} className={classes.container} noValidate>
         <TextField
             id="datetime-local"
-            onChange={onChangeDate}
+            onChange={onChangeDateTime}
             label="Next appointment"
             type="datetime-local"
             className={classes.textField}
@@ -110,10 +117,12 @@ export default function SchedulingModal() {
             <FormControlLabel value="major" control={<Radio />} label="Choosing a Major" />
             <FormControlLabel value="application" control={<Radio />} label="Application Help" />
         </RadioGroup>
-        </form>
-        <button type="button">
+        <Button
+            type="submit"
+          >
             Submit
-        </button>
+          </Button>
+        </form>
     </div>
   );
 
