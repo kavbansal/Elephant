@@ -19,6 +19,7 @@ import "./App.css";
 import StudentDashboard from "./components/pages/StudentDashboard";
 import { AuthContextProvider } from "./components/helper/AuthContext";
 
+//This is the student sign up page
 const App = () => {
   return (
     <AuthContextProvider>
