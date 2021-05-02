@@ -64,7 +64,7 @@ function Signin() {
     //data.append("email", this.state.email);
     //data.append("password", this.state.password);
 
-    axios.get("https://elephant-csie.herokuapp.com/api/userinfo/" + email
+    axios.get("/api/userinfo/" + email
     ).then((res) => {
       //alert(res.data[0].password)
       setUserID(res.data[0].id);

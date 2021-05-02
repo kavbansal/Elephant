@@ -39,7 +39,7 @@ function SchoolProfile() {
   const classes = useStyles();
 
   const getMentors = e => {
-    axios.get("https://elephant-csie.herokuapp.com/api/mentorinfo").then((res) => {
+    axios.get("/api/mentorinfo").then((res) => {
         let topMentors = []
         let i = 0;
         for (i = 0; i < 3; i++) {

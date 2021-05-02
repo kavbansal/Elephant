@@ -114,7 +114,7 @@ function Schools() {
     const classes = useStyles();
     const history = useHistory();
     const getSchools = e => {
-        axios.get("https://elephant-csie.herokuapp.com/api/collegeinfo").then((res) => {
+        axios.get("/api/collegeinfo").then((res) => {
             setSchoolList(res.data);
         });
     } 
@@ -124,7 +124,7 @@ function Schools() {
     }, [])
 
     const handleClick = (value) => {
-        axios.get("https://elephant-csie.herokuapp.com/api/collegeinfo/" + value).then((res) => {
+        axios.get("/api/collegeinfo/" + value).then((res) => {
             setCollege(res.data);
             history.push("/schoolProfile");
         });

@@ -26,7 +26,7 @@ export default class Home extends Component {
     )
     
     axios.get(
-      "https://elephant-csie.herokuapp.com/api/userinfo"
+      "/api/userinfo"
     ).then(
       (res) => {
         this.addUser(name, email);
@@ -40,7 +40,7 @@ export default class Home extends Component {
     data.append('email', this.state.email);
     axios({
       method: 'post',
-      url: 'https://elephant-csie.herokuapp.com/api/userinfo',
+      url: '/api/userinfo',
       data: data,
       headers: {'Content-Type': 'multipart/form-data' }
     }).then(this.resetState());

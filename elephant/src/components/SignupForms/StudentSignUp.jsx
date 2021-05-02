@@ -73,7 +73,7 @@ export default function StudentSignUp() {
     & email !== "null" && email !== "undefined" ) {
         axios({
             method: 'post',
-            url: 'https://elephant-csie.herokuapp.com/api/userinfo',
+            url: '/api/userinfo',
             data: data,
             headers: {'Content-Type': 'multipart/form-data' }
           }).then((res) => {
