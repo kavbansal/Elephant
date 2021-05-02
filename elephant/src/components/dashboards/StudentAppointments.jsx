@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//A defualt function for the student appointment 
 export default function StudentAppointments() {
   const classes = useStyles();
   /* function createData(id, date, name, sessionType) {
