@@ -645,7 +645,7 @@ class Mentor(AbstractUser):
 
 class College(ABC):
 
-    def __init__(self, Id=None, name=None, gpa=None, image=None):
+    def __init__(self, Id=None, name=None, gpa=None, image=None, sat=None, acceptRate=None, ranking=None, enrollment=None, tuition=None):
         """
             Initialize self.
 
@@ -659,6 +659,11 @@ class College(ABC):
         self.name = name                # Should be a string
         self.gpa = gpa              # Should be a float/double
         self.image = image
+        self.sat = sat
+        self.acceptRate = acceptRate
+        self.ranking = ranking
+        self.enrollment = enrollment
+        self.tuition = tuition
 
     @classmethod
     def fromDict(cls, doc):
@@ -667,6 +672,11 @@ class College(ABC):
         college.name = doc['name']
         college.gpa = doc['gpa']
         college.image = doc['image']
+        college.sat = doc['sat']
+        college.acceptRate = doc['acceptRate']
+        college.ranking = doc['ranking']
+        college.enrollment = doc['enrollment']
+        college.tuition = doc['tuition']
         return college
 
     # when convert to dict, set isAdmin to false
@@ -675,7 +685,12 @@ class College(ABC):
             'id'            : self.Id,
             'name'          : self.name,
             'gpa'           : self.gpa,
-            'image'           : self.image,
+            'image'         : self.image,
+            'sat'           : self.sat,
+            'acceptRate'    : self.acceptRate,
+            'ranking'       : self.ranking,
+            'enrollment'    : self.enrollment,
+            'tuition'       : self.tuition,
         }
         return output
 
@@ -711,6 +726,46 @@ class College(ABC):
     def image(self, image):
         self.__image = image
 
+    @property
+    def sat(self):
+        return self.__sat
+
+    @sat.setter
+    def sat(self, sat):
+        self.__sat = sat
+
+    @property
+    def acceptRate(self):
+        return self.__acceptRate
+
+    @acceptRate.setter
+    def acceptRate(self, acceptRate):
+        self.__acceptRate = acceptRate
+
+     @property
+    def ranking(self):
+        return self.__ranking
+
+    @ranking.setter
+    def ranking(self, ranking):
+        self.__ranking = ranking
+
+     @property
+    def enrollment(self):
+        return self.__enrollment
+
+    @enrollment.setter
+    def enrollment(self, enrollment):
+        self.__enrollment= enrollment
+
+    @property
+    def tuition(self):
+        return self.__tuition
+
+    @tuition.setter
+    def tuition(self, tuition):
+        self.__tuition = tuition
+
     def __eq__(self, otherUser):
         if self.Id != otherUser.Id:
             return False
@@ -719,6 +774,16 @@ class College(ABC):
         if self.gpa != otherUser.gpa:
             return False
         if self.image != otherUser.image:
+            return False
+        if self.sat != otherUser.sat:
+            return False
+        if self.acceptRate != otherUser.acceptRate:
+            return False
+        if self.ranking != otherUser.ranking:
+            return False
+        if self.enrollment != otherUser.enrollment:
+            return False
+        if self.tuition != otherUser.tuition:
             return False
         return True
 

@@ -103,8 +103,13 @@ def add_college():
     name = request.form['name']
     gpa = request.form['gpa']
     image = request.form['image']
+    sat = request.form['sat']
+    acceptRate = request.form['acceptRate']
+    ranking = request.form['ranking']
+    enrollment = request.form['enrollment']
+    tuition = request.form['tuition']
     
-    college = College(name=name, gpa=gpa, image=image)
+    college = College(name=name, gpa=gpa, image=image, sat=sat, acceptRate=acceptRate, ranking=ranking, enrollment=enrollment, tuition=tuition)
     mongo_college_dao.insert(college)
     return jsonify(college.toDict()), 200
     

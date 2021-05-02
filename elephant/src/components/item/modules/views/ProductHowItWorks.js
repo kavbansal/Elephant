@@ -79,7 +79,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <Typography variant="h5" align="center">
-                  Find current college student mentors at these schools who you would like to connect with by looking at their Q&A activity and interests.
+                  Find current college student mentors with whom you would like to connect at these schools by viewing their Q&A activity and interests.
                 </Typography>
               </div>
             </Grid>

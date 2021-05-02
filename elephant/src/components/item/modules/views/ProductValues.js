@@ -68,7 +68,7 @@ function ProductValues(props) {
               <Typography variant="h5">
                 {'Elephant allows college applicants to better understand how they would fit at each of their '}
                 {'top schools and how to put their best foot forward in their applications. With the help of real college '}
-                {'student mentors, we aim to make college applications simpler and more transparent than ever before!'}
+                {'student mentors from these top US universities, we aim to make your college applications stronger and less stressful than ever before!'}
               </Typography>
             </div>
           </Grid>

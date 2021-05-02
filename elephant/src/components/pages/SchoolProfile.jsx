@@ -70,7 +70,12 @@ function SchoolProfile() {
                     By the Numbers
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
-                  Average GPA: {college.gpa}
+                  Average GPA: {college.gpa} <br></br>
+                  Average SAT score: {college.sat} <br></br>
+                  Acceptance Rate: {college.acceptRate}<br></br>
+                  Enrollment: {college.enrollment} <br></br>
+                  Tuition and Fees: {college.enrollment} <br></br>
+                  Ranking (US News Best National Universities): {college.ranking}
                   </Typography>
               </CardContent>
           </CardActionArea>
