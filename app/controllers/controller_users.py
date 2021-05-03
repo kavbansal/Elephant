@@ -16,6 +16,22 @@ mongo_college_dao = daoFactory.getDao('college', collegesColl)
 appointmentsColl = mongo.db.appointments
 mongo_appointment_dao = daoFactory.getDao('appointment', appointmentsColl)
 
+@users_router.route('/', methods=['GET'])
+def get_all():
+    # get list of all items using DAO and specifying the tags
+    listOfUsers = mongo_user_dao.findAll()
+
+    output = [user.toDict() for user in listOfUsers]
+    return jsonify(output), 200
+
+@users_router.route('/favicon.ico', methods=['GET'])
+def get_all_second():
+    # get list of all items using DAO and specifying the tags
+    listOfUsers = mongo_user_dao.findAll()
+
+    output = [user.toDict() for user in listOfUsers]
+    return jsonify(output), 200
+
 @users_router.route('/api/userinfo', methods=['POST'])
 def add_user():
     name = request.form['name']
