@@ -742,7 +742,7 @@ class College(ABC):
     def acceptRate(self, acceptRate):
         self.__acceptRate = acceptRate
 
-     @property
+    @property
     def ranking(self):
         return self.__ranking
 
@@ -750,7 +750,7 @@ class College(ABC):
     def ranking(self, ranking):
         self.__ranking = ranking
 
-     @property
+    @property
     def enrollment(self):
         return self.__enrollment
 
