@@ -51,7 +51,7 @@ const Navigation = () => {
         <Container maxWidth="md" className={classes.navbarDisplayFlex}>
           <IconButton edge="start" color="inherit" aria-label="home">
             {/* <img src='/LOGO_temp.PNG' alt='logo' width="70" height="45"/> */}
-            <img src='/LogoWhite.PNG' alt='logo' width="50" height="45"/>
+            <img src='/LogoWhite.PNG' alt='logo' width="60" height="45"/>
           </IconButton>
           <Hidden smDown>
             <List
