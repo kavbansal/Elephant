@@ -26,6 +26,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import {fade} from "@material-ui/core/styles";
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import MUIRichTextEditor from 'mui-rte'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -115,6 +116,13 @@ export default function QnA(){
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const [reply, setReply] = React.useState(false);
+
+    const handleReplyClick = () => {
+        setReply(!reply);
+    };
+
 
     return (
         <GridItem xs={12} sm={12} md={12} lg={12}>
@@ -254,8 +262,35 @@ export default function QnA(){
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Reply</Button>
+                      <Button size="small" onClick={handleReplyClick} aria-expanded={reply} aria-label="reply">
+                          Reply
+                      </Button>
                   </CardActions>
+                  <Collapse in={reply} timeout="auto" unmountOnExit>
+                      <CardContent style={{textAlign: "left", backgroundColor:"#DCDCDC"}} >
+                          <Typography paragraph>Comment:</Typography>
+                          <Card className={classes.root} variant="outlined" style={{textAlign: "left", height:"346px"}}>
+                              <Typography style={{height:"300px"}}>
+                                <MUIRichTextEditor
+                                    label="" />
+                              </Typography>
+                              <Button size="small"
+                                      onClick={handleReplyClick}
+                                      aria-expanded={reply}
+                                      style = {{float: "right"}}
+                                      aria-label="reply">
+                                    Cancel
+                              </Button>
+                              <Button size="small"
+                                      onClick={handleReplyClick}
+                                      aria-expanded={reply}
+                                      style = {{float: "right"}}
+                                      aria-label="reply">
+                                    Post
+                              </Button>
+                          </Card>
+                      </CardContent>
+                  </Collapse>
                 </Card>
             </span>
                     )
