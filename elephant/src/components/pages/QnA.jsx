@@ -142,12 +142,14 @@ export default function QnA(){
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </div>
+
             <Button
-                style={{display: 'flex', justifyContent: 'left', marginLeft: "2%", borderRadius: "10"}}
+                className={classes.button}
+                style={{display: 'flex', justifyContent: 'left', marginLeft: "2%", borderRadius: "10", width:"150px"}}
                 variant="contained"
                 color="primary"
                 size="small"
-                className={classes.button}
+                href="/QnA/NewPost"
                 startIcon={<PostAddIcon />}>
                 New Post
             </Button>

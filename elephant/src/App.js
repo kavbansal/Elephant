@@ -13,6 +13,7 @@ import StudentSignUp from './components/SignupForms/StudentSignUp';
 import MentorSignUp from './components/SignupForms/MentorSignUp';
 import SchoolMentors from './components/pages/SchoolMentors';
 import QnA from './components/pages/QnA';
+import NewPost from './components/pages/NewPost';
 import Messaging from './components/pages/Messaging';
 
 import "./App.css";
@@ -40,7 +41,8 @@ const App = () => {
             <Route path="/studentSignupForm" component={StudentSignUp} />
             <Route path="/mentorSignupForm" component={MentorSignUp} />
             <Route path="/studentDashboard" component={StudentDashboard} />
-            <Route path="/QnA" component={QnA} />
+            <Route exact path="/QnA" component={QnA} />
+            <Route path="/QnA/NewPost" component={NewPost} />
             <Route path="/signout" component={Signout} />
             <Route path="/messaging" component={Messaging} />
             {/* Will probably replace schoolProfile and schoolMentors with /schools/id or /schools/name in future */}
