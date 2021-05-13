@@ -32,6 +32,7 @@
 2. Enter the command `mongod --dbpath=./data/db/`
 
 # General Flow
+
 - User gets to landing page, can read about Elephant and sign up, or sign in if they have already signed up.
 - Can view booked appointments on dashboard. Please note, in-app messaging is currently a work in progress but will be added soon. For now, mentors and students are connected via e-mail after booking a consultation.
 - Can view schools and select any one to go to its profile page, where you are greeted by large visuals. User can easily view important up-to-date statistics like average GPA, acceptance rate, and more. User can also view commonly asked questions and answers from mentors, and can see currently featured mentors and a full list of mentors from this university with whom they can connect and schedule a consultation.
@@ -40,6 +41,7 @@ The 3 core goals of Elephant are present in this minimum viable product: Allow s
 
 
 # Technical Development Plan (original)
+
 ## Iteration 1
 - Create basic frontend webpage
 - Design classes and database tables
@@ -60,5 +62,6 @@ The 3 core goals of Elephant are present in this minimum viable product: Allow s
 - Implement Messaging
 - Implement Payment
 - UI Improvements
+
 # Wireframes
 https://www.figma.com/file/UO6YbQUoaK2SEgRAYZdDKo/Elephant-Project
