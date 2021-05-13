@@ -6,7 +6,6 @@
 - Nodejs version 13.9.0
 - Python version 3.7.5
 - Need to have npm, nodejs, python installed.
-- Backend doesn't work right now.
 
 ## Front End (ReactJS)
 
@@ -19,7 +18,7 @@
 1. Create a virtual environment if haven't. This would be `virtualenv -p python3 env`
 2. Start up your virtual environment (windows is `.\env\Scripts\activate`, linux is  `source ./env/bin/activate`)
 3. With the virtual environment activated, `pip install -r requirements.txt`
-4. run start_server.sh
+4. run `./start_server.sh`
 
 ## Database (MongoDB)
 
