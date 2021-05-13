@@ -31,15 +31,27 @@
 2. Enter the command `mongod --dbpath=./data/db/`
 
 # General Flow
+<img src="/screenshots/About.PNG"/>
 
-- User gets to landing page, can read about Elephant and sign up, or sign in if they have already signed up.
-- Can view booked appointments on dashboard. Please note, in-app messaging is currently a work in progress but will be added soon. For now, mentors and students are connected via e-mail after booking a consultation.
-- Can view schools and select any one to go to its profile page, where you are greeted by large visuals. User can easily view important up-to-date statistics like average GPA, acceptance rate, and more. User can also view commonly asked questions and answers from mentors, and can see currently featured mentors and a full list of mentors from this university with whom they can connect and schedule a consultation.
+### User gets to landing page, can read about Elephant and sign up, or sign in if they have already signed up.
 
-The 3 core goals of Elephant are present in this minimum viable product: Allow students to easily view the latest info on top schools, allow students to view questions and trusted yet honest answers about each school, and allow students to schedule consultations with mentors at these schools to better understand their fit, plan and revise their essays, and more. With that being said, we are still working on improving Elephant to make it a more seamless experience with things like in-app messaging (frontend demo available on dashboard page) and PayPal integration. A good portion of time was spent refining our business model, so we hope to apply what we have learned on that side and what we have built on the technical side to make Elephant's initial launch as strong as possible.
+<img src="/screenshots/Signup1.PNG"/>
+<img src="/screenshots/SignupMentor.PNG"/>
+<img src="/screenshots/Signin.PNG"/>
+
+### User can view booked appointments on dashboard. Please note, in-app messaging is currently a work in progress but will be added soon. For now, mentors and students are connected via e-mail after booking a consultation.
+
+<img src="/screenshots/Dashboard.PNG"/>
+
+### User can view schools and select any one to go to its profile page, where you are greeted by large visuals. User can easily view important up-to-date statistics like average GPA, acceptance rate, and more. User can also view commonly asked questions about this school with answers from mentors, and can see currently featured mentors and a full list of mentors from this university with whom they can connect and schedule a consultation.
+
+<img src="/screenshots/Schools.PNG"/>
+<img src="/screenshots/SchoolDetails.PNG"/>
+
+#### The 3 core goals of Elephant are present in this minimum viable product: Allow students to easily view the latest info on top schools, allow students to view questions and trusted yet honest answers about each school, and allow students to schedule consultations with mentors at these schools to better understand their fit, plan and revise their essays, and more. With that being said, we are still working on improving Elephant to make it a more seamless experience with things like in-app messaging (frontend demo available on dashboard page) and PayPal integration. A good portion of time was spent refining our business model, so we hope to apply what we have learned on that side and what we have built on the technical side to make Elephant's initial launch as strong as possible.
 
 
-# Technical Development Plan (original)
+# (Initial) Technical Development Plan
 
 ## Iteration 1
 - Create basic frontend webpage
@@ -62,5 +74,7 @@ The 3 core goals of Elephant are present in this minimum viable product: Allow s
 - Implement Payment
 - UI Improvements
 
-# Wireframes
+Updated development plan on ClickUp: https://sharing.clickup.com/g/h/895tg-14/f99b8a7a9aa2d7c
+
+# (Initial) Wireframes
 https://www.figma.com/file/UO6YbQUoaK2SEgRAYZdDKo/Elephant-Project
