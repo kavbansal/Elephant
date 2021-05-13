@@ -47,6 +47,7 @@
 
 <img src="/screenshots/Schools.PNG"/>
 <img src="/screenshots/SchoolDetails.PNG"/>
+<img src="/screenshots/QnA.PNG"/>
 
 #### The 3 core goals of Elephant are present in this minimum viable product: Allow students to easily view the latest info on top schools, allow students to view questions and trusted yet honest answers about each school, and allow students to schedule consultations with mentors at these schools to better understand their fit, plan and revise their essays, and more. With that being said, we are still working on improving Elephant to make it a more seamless experience with things like in-app messaging (frontend demo available on dashboard page) and PayPal integration. A good portion of time was spent refining our business model, so we hope to apply what we have learned on that side and what we have built on the technical side to make Elephant's initial launch as strong as possible.
 
