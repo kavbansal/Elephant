@@ -10,7 +10,7 @@
 ## Front End (ReactJS)
 
 1. Open a new terminal and head to /elephant
-2. Enter the command `npm install` to get the correct node modules and packages needed to run the front end.
+2. Enter the command `npm install`, `npm install @material-ui/core` to get the correct node modules and packages needed to run the front end (other install may need to be done).
 3. Enter the command `npm start` 
 
 ## API Server (Flask)
